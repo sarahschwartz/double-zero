@@ -1,2 +1,19 @@
-groups: []
-contracts: []
+groups:
+  - name: "group1"
+    members:
+      - "0xeaAFbF6Fc352B0598e34f4F282939720D9cf0f59"
+  - name: "group2"
+    members:
+      - "0x71e6dDfE9074786Fd8e986C53f78D25450d614D5"
+contracts:
+  - address: "0xdc2C7b123B447444f4d81585f6C65101F1D2aa63"
+    methods:
+      - selector: "0x8381f58a"
+        read: "*"
+        write: "*"
+      - selector: "0xed57452b"
+        read: "*"
+        write: "*"
+      - selector: "0x2d863dcc"
+        read: "*"
+        write: "*"

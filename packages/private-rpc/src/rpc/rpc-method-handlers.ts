@@ -37,6 +37,9 @@ const eth_call: MethodHandler = {
     }
 
     const data = call.data || call.input;
+    if (data) {
+      console.log('Selector:', extractSelector(data));
+    }
     if (
       data &&
       !context.authorizer.checkContractRead(
@@ -74,6 +77,10 @@ const zks_sendRawTransactionWithDetailedOutput: MethodHandler = {
 
     if (!tx.to) {
       return invalidRequest(id);
+    }
+
+    if (tx.data) {
+      console.log('Selector:', extractSelector(tx.data));
     }
 
     if (
