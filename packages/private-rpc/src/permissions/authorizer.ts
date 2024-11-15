@@ -1,4 +1,4 @@
-import { Address, getAddress, Hex } from 'viem';
+import { Address, Hex } from 'viem';
 import {
   AccessDeniedRule,
   AccessRule,
@@ -25,9 +25,8 @@ export class Authorizer {
   }
 
   checkContractWrite(address: Address, method: Hex, user: Address) {
-    const checksumed = getAddress(address);
     const rule =
-      this.permissions.get(`write_contract:${checksumed}:${method}`) ||
+      this.permissions.get(`write_contract:${address}:${method}`) ||
       new AccessDeniedRule();
     return rule.canDo(user);
   }

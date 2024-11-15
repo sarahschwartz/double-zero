@@ -75,7 +75,9 @@ const zks_sendRawTransactionWithDetailedOutput: MethodHandler = {
       return unauthorized(id, 'Cannot impersonate other users');
     }
 
-    if (!tx.to) {
+    const txTo = addressSchema.safeParse(tx.to);
+
+    if (!txTo.success) {
       return invalidRequest(id);
     }
 
@@ -86,7 +88,7 @@ const zks_sendRawTransactionWithDetailedOutput: MethodHandler = {
     if (
       tx.data &&
       !context.authorizer.checkContractWrite(
-        tx.to,
+        txTo.data,
         extractSelector(tx.data),
         context.currentUser,
       )
