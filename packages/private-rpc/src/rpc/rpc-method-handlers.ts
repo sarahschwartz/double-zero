@@ -78,10 +78,6 @@ const zks_sendRawTransactionWithDetailedOutput: MethodHandler = {
       return invalidRequest(id);
     }
 
-    if (tx.data) {
-      console.log('Selector:', extractSelector(tx.data));
-    }
-
     if (
       tx.data &&
       !context.authorizer.checkContractWrite(
