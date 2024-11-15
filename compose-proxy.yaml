@@ -25,17 +25,28 @@ services:
       USER_TOKEN_URL: http://private-rpc:4041/users
       CREATE_TOKEN_SECRET: ${CREATE_TOKEN_SECRET}
 
+  private-rpc-migrate:
+    build:
+      context: .
+      dockerfile: ./packages/private-rpc/Dockerfile
+    command: sh -c "yarn db:migrate"
+    depends_on:
+      db-private-rpc:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: "postgres://postgres:postgres@db-private-rpc:5432/private-rpc"
+
   private-rpc:
     build:
       context: .
       dockerfile: ./packages/private-rpc/Dockerfile
-      args:
-        - DATABASE_URL=postgres://postgres:postgres@db-private-rpc:5432/private-rpc
     volumes:
       - ./compose-proxy-permissions.yaml:/app/permissions.yaml
     depends_on:
       db-private-rpc:
         condition: service_healthy
+      private-rpc-migrate:
+        condition: service_completed_successfully
     ports:
       - '4041:4041'
     environment:

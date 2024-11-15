@@ -33,8 +33,4 @@ ENV PORT="4041"
 EXPOSE $PORT
 WORKDIR /app/packages/private-rpc
 
-ARG DATABASE_URL
-ENV DATABASE_URL $DATABASE_URL
-RUN yarn db:migrate
-
 CMD [ "node", "dist/index.js" ]
