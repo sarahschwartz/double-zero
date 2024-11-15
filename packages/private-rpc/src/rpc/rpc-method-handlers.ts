@@ -37,9 +37,6 @@ const eth_call: MethodHandler = {
     }
 
     const data = call.data || call.input;
-    if (data) {
-      console.log('Selector:', extractSelector(data));
-    }
     if (
       data &&
       !context.authorizer.checkContractRead(
