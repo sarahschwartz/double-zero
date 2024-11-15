@@ -14,6 +14,8 @@ services:
     build:
       context: .
       dockerfile: ./packages/proxy/Dockerfile
+      environment:
+        DATABASE_URL: "postgres://postgres:postgres@db-private-rpc:5432/private-rpc"
     ports:
       - "4040:4040"
     environment:
