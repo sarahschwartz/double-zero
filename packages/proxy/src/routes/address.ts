@@ -110,11 +110,18 @@ export const addressRoutes = (app: FastifyApp) => {
         baseUrl,
         req.query,
         logsSchema,
-        (log) =>
-          isAddressEqual(log.address, user) ||
-          log.topics.some(
-            (topic) => isAddress(topic) && isAddressEqual(topic, user),
-          ),
+        (log) => {
+          return (
+            isAddressEqual(log.address, user) ||
+            log.topics.some((topic) => {
+              const addressInTopic = `0x${topic.slice(-40)}`;
+              return (
+                isAddress(addressInTopic) &&
+                isAddressEqual(addressInTopic, user)
+              );
+            })
+          );
+        },
         limit,
       );
     },
