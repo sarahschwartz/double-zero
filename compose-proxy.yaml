@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: ./packages/app/Dockerfile
     ports:
-      - '3010:80'
+      - '3010:3010'
     depends_on:
       - proxy
     restart: unless-stopped
@@ -41,7 +41,7 @@ services:
       context: .
       dockerfile: ./packages/private-rpc/Dockerfile
     volumes:
-      - ./proxy-permissions.yaml:/app/permissions.yaml
+      - ./compose-proxy-permissions.yaml:/app/permissions.yaml
     depends_on:
       db-private-rpc:
         condition: service_healthy

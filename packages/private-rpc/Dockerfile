@@ -32,4 +32,5 @@ RUN yarn install --production=true
 ENV PORT="4041"
 EXPOSE $PORT
 WORKDIR /app/packages/private-rpc
+
 CMD [ "node", "dist/index.js" ]

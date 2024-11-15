@@ -67,6 +67,13 @@ export default (context = useContext()) => {
         });
         return;
       } catch (error) {
+        if (error instanceof FetchError && error.response?.status === 403) {
+          await router.push({
+            name: searchRoute.routeName,
+            params: searchRoute.routeParam,
+          });
+          return;
+        }
         if (
           !(error instanceof FetchError) ||
           (error instanceof FetchError && error.response?.status !== 404)

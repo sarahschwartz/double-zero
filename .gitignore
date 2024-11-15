@@ -58,3 +58,8 @@ lerna-debug.log*
 
 # App hyperchain config
 hyperchain.config.json
+
+# Demo zksync output
+/demo/cache
+/demo/out
+/demo/zkout
