@@ -14,8 +14,6 @@ services:
     build:
       context: .
       dockerfile: ./packages/proxy/Dockerfile
-      environment:
-        DATABASE_URL: "postgres://postgres:postgres@db-private-rpc:5432/private-rpc"
     ports:
       - "4040:4040"
     environment:
@@ -31,6 +29,8 @@ services:
     build:
       context: .
       dockerfile: ./packages/private-rpc/Dockerfile
+      args:
+        - DATABASE_URL=postgres://postgres:postgres@db-private-rpc:5432/private-rpc
     volumes:
       - ./compose-proxy-permissions.yaml:/app/permissions.yaml
     depends_on:
