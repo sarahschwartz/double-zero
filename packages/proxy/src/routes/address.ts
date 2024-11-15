@@ -1,6 +1,6 @@
 import type { FastifyApp } from '../app.js';
 import { z } from 'zod';
-import { isAddressEqual } from 'viem';
+import { isAddress, isAddressEqual } from 'viem';
 import { getUser, getUserOrThrow } from '../services/user.js';
 import { ForbiddenError } from '../utils/http-error.js';
 import {
@@ -110,7 +110,11 @@ export const addressRoutes = (app: FastifyApp) => {
         baseUrl,
         req.query,
         logsSchema,
-        (log) => log.address === user || log.topics.includes(user),
+        (log) =>
+          isAddressEqual(log.address, user) ||
+          log.topics.some(
+            (topic) => isAddress(topic) && isAddressEqual(topic, user),
+          ),
         limit,
       );
     },

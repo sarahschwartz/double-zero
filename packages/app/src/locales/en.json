@@ -351,7 +351,7 @@
             },
             "unauthorized": {
                 "title": "Contract Access Restricted",
-                "subtitle": "You don't have permission to view the balance of this contract. Please verify the address and try again."
+                "subtitle": "You don't have permission to view the balance of this contract."
             }
         },
         "table": {
@@ -663,7 +663,7 @@
             },
             "unauthorized": {
                 "title": "Account Access Restricted",
-                "subtitle": "You don't have permission to view the balance of this account. Please verify the address and try again."
+                "subtitle": "You don't have permission to view the balance of this account."
             }
         },
         "visibilityWarning": "You can only view transactions and transfers between this account and your connected wallet."

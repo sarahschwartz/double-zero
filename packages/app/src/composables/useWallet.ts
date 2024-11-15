@@ -65,6 +65,8 @@ export function processException(e: any, message: string): never {
     e?.info?.error?.data?.code === -32090
   ) {
     throw WalletError.UnauthorizedError(e?.info?.error?.data?.message);
+  } else if (e?.code === 'UNKNOWN_ERROR' && e?.error?.code === -32603) {
+    throw WalletError.UnauthorizedError();
   }
   throw WalletError.UnknownError(e?.message?.length ? e.message : message);
 }

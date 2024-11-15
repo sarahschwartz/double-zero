@@ -64,7 +64,8 @@ export class YamlParser {
       this.groups
         .filter((g) => g.name === groupName)
         .map((g) => g.members)
-        .flat() || ([] as Address[])
+        .flat()
+        .map((a) => addressSchema.parse(a)) || ([] as Address[])
     );
   }
 

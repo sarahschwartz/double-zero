@@ -7,7 +7,7 @@ import {
   validatorCompiler,
   type ZodTypeProvider,
 } from 'fastify-type-provider-zod';
-import type { Address } from 'viem';
+import { getAddress, type Address } from 'viem';
 import { allRoutes } from './routes/index.js';
 import { HttpError } from './utils/http-error.js';
 import type { Hex } from './utils/schemas.js';
@@ -80,7 +80,7 @@ export function buildApp(
   app.addHook('onRequest', (req, _reply, done) => {
     // Read user from session
     const user = readAuthSession(req).siwe?.data.address;
-    req.user = user as Address | undefined;
+    req.user = user ? getAddress(user) : undefined;
 
     // Update cookie expiry date if less than half of the session expiry
     const expiry = req.session.get('__ts') as number | undefined;
