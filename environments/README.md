@@ -1,27 +1,7 @@
-# Double Zero
+# Environments
 
-Double zero is a set of services to add authentication and authorization to a ZKsync
-compatible chain.
-
-## Run
-
-The easiest way to run the services is using docker compose.
-
-There are 3 different compose configurations:
-
-### Full local
-
-This is a configuration that spawns a local
-eth node and a local zksync node and indexes everything from those local chains.
-
-``` shell
-docker compose -f docker-compose.yaml up
-```
-
-Navigating to [http://localhost:3010](http://localhost:3010) will show the explorer.
-
-Permissions can be configured editing [this](./compose-00-permissions.yaml) file.
-
+In this folder there are a few simple configurations to try Double Zero in a local environment,
+but in a close to production state.
 
 ### Proxy mode
 
@@ -39,15 +19,16 @@ BLOCK_EXPLORER_API_URL="https://block-explorer-api.mainnet.zksync.io"
 Once the configuration is in place, the services can be started using:
 
 ``` shell
-docker compose -f compose-proxy.yaml --env-file=compose-proxy.env up
+./launch-proxy-env.sh
 ```
 
 Permissions can be configured editing [this](./compose-proxy-permissions.yaml) file.
 
-### Double Zero mode
+### Hyperchain mode
 
-This configuration is meant to target a private validium chain. The only
-configuration needed is a rpc for the chain.
+This configuration is meant to target any hyperchain. In particular double zero
+was meant thinking on private access for a validium chain. You can find more info
+about how to create your own validium chain [here](#spawning-a-local-validium-chain)
 
 ``` .env
 # validium.env
@@ -77,7 +58,7 @@ address is something like `http://{my-ip}:{port}`.
 Once the configuration is in place the services can be started like this:
 
 ``` shell
-docker compose -f compose-00.yaml --env-file=compose-00.env up
+./launch-hyperchain-env.sh
 ```
 
 
