@@ -1,6 +1,9 @@
-<h1 align="center">Double Zero</h1>
 
-<p align="center"> A private blockchain solution with access control features** that leverage the ZKsync Elastic Chain ecosystem's **development tools and interoperability.</p>
+<h3 align="center"> ⛓️ 🔐 👀</h3>
+
+<h1 align="center">Double Zero </h1>
+
+<p align="center"> A private blockchain solution with access control features that leverage the ZKsync Elastic Chain ecosystem's development tools and interoperability.</p>
 
 ![Double-Zero](architectureOverview.png)
 
