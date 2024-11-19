@@ -11,11 +11,19 @@ export async function requestAndFilterCollection<Parser extends ZodTypeAny>(
   limit = 10,
 ) {
   const finalSchema = enumeratedSchema(schema);
-  const res = await fetch(buildUrl(baseUrl, query))
+  const filterQuery = {
+    limit: 1000,
+  };
+
+  const res = await fetch(buildUrl(baseUrl, filterQuery))
     .then((res) => res.json())
     .then((json) => finalSchema.parse(json));
 
-  const filtered = res.items.filter(filter);
+  const pageSize = Number(query.limit || 10);
+  const pageNumber = Number(query.page || 0);
+
+  const start = pageNumber * pageSize;
+  const filtered = res.items.filter(filter).slice(start, start + pageSize);
 
   return wrapIntoPaginationInfo(filtered, baseUrl, limit);
 }
