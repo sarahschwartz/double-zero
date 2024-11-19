@@ -1,6 +1,6 @@
-<h1 align="center">Double Zero Block Explorer</h1>
+# Double Zero Block Explorer
 
-<p align="center"> A privacy-focused, access-controlled blockchain browser for the Double Zero implementation.</p>
+**A privacy-focused, access-controlled blockchain browser for the Double Zero implementation**
 
 ## 📌 Overview
 
@@ -8,7 +8,7 @@
 > **Double Zero** Block Explorer is a customized version of the [ZKsync Era Block Explorer](https://github.com/matter-labs/block-explorer) that introduces a layer of privacy and access control. By implementing user **authentication and permission-based data restrictions**, it ensures that users can access blockchain data according to their assigned permissions.
 
 This repository is a monorepo consisting of 5 packages:
-- [Worker](./packages/worker) - an indexer service for [ZKsync Era](https://zksync.io) blockchain data. The purpose of the service is to read blockchain data in real time, transform it and fill in it's database with the data in a way that makes it easy to be queried by the [API](./packages/api) service.
+- [Worker](./packages/worker) - an indexer service for [ZKsync Era](https://zksync.io) compatible chains. The purpose of the service is to read blockchain data in real time, transform it and fill in it's database with the data in a way that makes it easy to be queried by the [API](./packages/api) service.
 - [Data Fetcher](./packages/data-fetcher) - a service that exposes and implements an HTTP endpoint to retrieve aggregated data for a certain block / range of blocks from the blockchain. This endpoint is called by the [Worker](./packages/worker) service.
 - [API](./packages/api) - a service providing Web API for retrieving structured [ZKsync Era](https://zksync.io) blockchain data collected by [Worker](./packages/worker). It connects to the Worker's database to be able to query the collected data.
 - [Proxy](./packages/proxy) - a proxy between the WebApp and the API used to filter data to users, and ensure that each user sees only the data that they are allowed to see.
@@ -142,11 +142,12 @@ double zero setup against the specified environment.
 
 
 ## ⛓️ Connection to your Hyperchain
+
 To get block-explorer connected to your ZK Stack Hyperchain you need to set up all the the necessary environment and configuration files with your Hyperchain settings. You can use a script to build them. See [Setting up env variables](#%EF%B8%8F-setting-up-env-variables).
 
 ## 🔍 Verify Block Explorer is up and running
 
-To verify front-end `App` is running open http://localhost:3010 in your browser. `API` should be available at http://localhost:3020, `Worker` at http://localhost:3001 and `Data Fetcher` at http://localhost:3040.
+To verify front-end `App` is running open http://localhost:3010 in your browser. `proxy` should be available at http://localhost:4040 and `private-rpc` at http://localhost:4041.
 
 ## 🕵️‍♂️ Testing
 Run unit tests for all packages:
