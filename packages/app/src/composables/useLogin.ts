@@ -73,10 +73,10 @@ export default (
     // Create SIWE message
     const address = await signer.getAddress();
     const message = new SiweMessage({
-      domain: 'localhost',
+      domain: window.location.host,
       address,
       statement: 'Sign in with Ethereum',
-      uri: 'http://localhost:3010',
+      uri: window.location.href,
       version: '1',
       chainId: context.currentNetwork.value.l2ChainId,
       nonce,
