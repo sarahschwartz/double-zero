@@ -40,7 +40,7 @@ Double Zero consists of three main components. Below, we'll cover the rationale 
 
 1. [**Validium Chain**](#why-validium)
 2. [**Permission-Based Proxy (Private RPC)**](#proxy-implementation-for-validium-rpc)
-3. [**Private Block Explorer**](#pr)  
+3. [**Private Block Explorer**](#private-block-explorer)  
 
 ## Why Validium?
 
