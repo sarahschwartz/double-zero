@@ -7,7 +7,7 @@
 > [!NOTE]
 > **Double Zero** Block Explorer is a customized version of the [ZKsync Era Block Explorer](https://github.com/matter-labs/block-explorer) that introduces a layer of privacy and access control. By implementing user **authentication and permission-based data restrictions**, it ensures that users can access blockchain data according to their assigned permissions.
 
-This repository is a monorepo consisting of 5 packages:
+This repository is a monorepo consisting of 6 packages:
 - [Worker](./packages/worker) - an indexer service for [ZKsync Era](https://zksync.io) compatible chains. The purpose of the service is to read blockchain data in real time, transform it and fill in it's database with the data in a way that makes it easy to be queried by the [API](./packages/api) service.
 - [Data Fetcher](./packages/data-fetcher) - a service that exposes and implements an HTTP endpoint to retrieve aggregated data for a certain block / range of blocks from the blockchain. This endpoint is called by the [Worker](./packages/worker) service.
 - [API](./packages/api) - a service providing Web API for retrieving structured [ZKsync Era](https://zksync.io) blockchain data collected by [Worker](./packages/worker). It connects to the Worker's database to be able to query the collected data.
