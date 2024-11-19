@@ -16,7 +16,6 @@ export async function requestAndFilterCollection<Parser extends ZodTypeAny>(
     limit: 100,
     page: 1,
   };
-  console.log('buildUrl(baseUrl, filterQuery)', buildUrl(baseUrl, filterQuery));
   const res = await fetch(buildUrl(baseUrl, filterQuery))
     .then((res) => res.json())
     .then((json) => finalSchema.parse(json));
