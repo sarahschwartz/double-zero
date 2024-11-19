@@ -24,7 +24,7 @@ export function wrapIntoPaginationInfo<T>(
   totalPages = collection.length === 0 ? 0 : 1,
 ): Paginated<T> {
   const previous =
-    currentPage === 0
+    currentPage === 1
       ? ''
       : `${linksBaseUri}?limit=${limit}&page=${currentPage - 1}`;
 
