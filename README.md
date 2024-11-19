@@ -7,7 +7,7 @@
 ![Double-Zero](architectureOverview.png)
 
 >[!NOTE]
-> By combining ***Zero-Knowledge with Zero-Access***, it offers a unique value proposition for organizations seeking to maintain ***privacy and access management** while harnessing the benefits of EVM-compatible technologies.
+> By combining ***Zero-Knowledge with Zero-Access***, it offers a unique value proposition for organizations seeking to maintain ***privacy and access management*** while harnessing the benefits of EVM-compatible technologies.
 
 ## ⚖️ Balancing Privacy and Interoperability
 
@@ -27,7 +27,7 @@ There is a lack of blockchain solutions that offer both. Existing options often 
 > [!CAUTION]
 > **This trade-off creates a barrier** for organizations that need a **hybrid solution** combining the benefits of both private and public blockchains.
 
-# 💡 Double Zero Solution
+# 💡 Double Zero Framework
 
 Double Zero addresses the need for **both privacy and interoperability**, offering organizations the best of both worlds: **the ability to operate within a secure, private, and controlled** blockchain environment while still **leveraging the tools of the broader Ethereum/Elastic-Chain ecosystem**.
 
@@ -40,9 +40,9 @@ Deploying private Validium chains with **zero-knowledge proofs** ensures transac
 
 Double Zero consists of three main components. Below, we'll cover the rationale behind these choices and their implications:
 
-1. [**Validium Chain**](#why-validium)
-2. [**Permission-Based Proxy (Private RPC)**](#proxy-implementation-for-validium-rpc)
-3. [**Private Block Explorer**](#private-block-explorer)  
+1. [**Validium Chain**](#️-why-validium)
+2. [**Permission-Based Proxy (Private RPC)**](#-proxy-implementation-for-validium-rpc)
+3. [**Private Block Explorer**](#-private-block-explorer)  
 
 ## ⛓️ Why Validium?
 
