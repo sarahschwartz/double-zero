@@ -28,6 +28,7 @@ export function useFetch<T>(
 
       item.value = response;
     } catch (_error) {
+      console.error(_error);
       failed.value = true;
       item.value = null;
     } finally {
