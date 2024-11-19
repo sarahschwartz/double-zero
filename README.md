@@ -1,170 +1,178 @@
-<h1 align="center">Double Zero Block Explorer</h1>
+<h3 align="center"> ⛓️ 🔐 👀</h3>
+<h1 align="center">Double Zero </h1>
 
-<p align="center"> A privacy-focused, access-controlled blockchain browser for the Double Zero implementation.</p>
+<p align="center">A private blockchain solution with access control features that leverage the ZKsync Elastic Chain ecosystem's development tools and interoperability.</p>
 
-## 📌 Overview
+![Double-Zero](architecture.png)*High-level architecture design for a “Double-Zero” implementation using a Validium Chain with access control features and scoped data access.*
 
 > [!NOTE]
-> **Double Zero** Block Explorer is a customized version of the [ZKsync Era Block Explorer](https://github.com/matter-labs/block-explorer) that introduces a layer of privacy and access control. By implementing user **authentication and permission-based data restrictions**, it ensures that users can access blockchain data according to their assigned permissions.
+> By combining ***Zero-Knowledge with Zero-Access***, it offers a unique value proposition for organizations seeking to
+> maintain ***privacy and access management*** while harnessing the benefits of EVM-compatible technologies.
 
-This repository is a monorepo consisting of 5 packages:
-- [Worker](./packages/worker) - an indexer service for [ZKsync Era](https://zksync.io) blockchain data. The purpose of the service is to read blockchain data in real time, transform it and fill in it's database with the data in a way that makes it easy to be queried by the [API](./packages/api) service.
-- [Data Fetcher](./packages/data-fetcher) - a service that exposes and implements an HTTP endpoint to retrieve aggregated data for a certain block / range of blocks from the blockchain. This endpoint is called by the [Worker](./packages/worker) service.
-- [API](./packages/api) - a service providing Web API for retrieving structured [ZKsync Era](https://zksync.io) blockchain data collected by [Worker](./packages/worker). It connects to the Worker's database to be able to query the collected data.
-- [Proxy](./packages/proxy) - a proxy between the WebApp and the API used to filter data to users, and ensure that each user sees only the data that they are allowed to see.
-- [App](./packages/app) - a front-end app providing an easy-to-use interface for users to view and inspect transactions, blocks, contracts and more. It makes requests to the [API](./packages/api) to get the data and presents it in a way that's easy to read and understand.
+## ⚖️ Balancing Privacy and Interoperability
 
-## 🏛 Architecture
-The following diagram illustrates how are the block explorer components connected:
+Organizations adopting blockchain technology often face a significant dilemma between **the need for privacy and control
+and the desire for interoperability**.
 
-```mermaid
-flowchart
-  subgraph blockchain[Blockchain]
-    Blockchain[ZKsync Era JSON-RPC API]
-  end
+Banks, financial institutions, and corporations require **strict privacy and access management** over their transactions
+and data to comply with regulatory standards, protect sensitive information, and maintain competitive advantages. Public
+blockchains like Ethereum are inherently transparent, making them unsuitable for applications that demand
+confidentiality.
 
-  subgraph dapps[Dapps]
-      PrivateRpc[User scoped rpc]
-  end
+Simultaneously, these organizations want to leverage **interoperability** with existing blockchain networks, **assets**
+available on public chains, and **Development tools** and robust ecosystems provided by ZKsync or Ethereum. This
+includes bridging assets, utilizing existing smart contracts and decentralized applications, and benefiting from an
+active developer community.
 
+### It's a challenge to achieve both
 
-subgraph explorer[Block explorer]
-    Database[("Block explorer DB<br/>(PostgreSQL)")]
-    Worker(Worker service)
-    Data-Fetcher(Data Fetcher service)
-    API(API service)
-    App(App)
-    Proxy(Proxy)
-    
-    Worker-."Request aggregated data (HTTP)".->Data-Fetcher
-    Data-Fetcher-."Request data (HTTP)".->Blockchain
-    Worker-.Save processed data.->Database
+There is a lack of blockchain solutions that offer both. Existing options often force organizations to choose between:
 
-    App-."Request data (HTTP)".->Proxy
-    Proxy-."Request data (HTTP) and filter results".->API
-    API-.Query data.->Database
-end
-  
-PrivateRpc -."Reads data. Returns data filtered per user.".->Blockchain
-Worker-."Request data (HTTP)".->Blockchain
-```
+- **Private Blockchains**: Offer necessary privacy and access control but are isolated, lacking interoperability with
+  public networks. This limits asset liquidity and the ability to leverage existing tools and dApps.
+- **Public Blockchains**: Provide interoperability and access to a wide range of assets and tools but do not offer the
+  privacy and granular access control required by organizations handling sensitive data.
 
-[Worker](./packages/worker) service retrieves aggregated data from the [Data Fetcher](./packages/data-fetcher) via HTTP and also directly from the blockchain using [ZKsync Era JSON-RPC API](https://docs.zksync.io/build/api-reference/ethereum-rpc), processes it and saves into the database. [API](./packages/api) service is connected to the same database where it gets the data from to handle API requests. It performs only read requests to the database. The front-end [App](./packages/app) makes HTTP calls to the Block Explorer [API](./packages/api) to get blockchain data <!-- and to the [ZKsync Era JSON-RPC API](https://docs.zksync.io/build/api-reference/ethereum-rpc) for reading contracts, performing transactions etc-->. The [Proxy](./packages/proxy) filters API responses based on user permissions, ensuring secure and controlled data access.
+> [!CAUTION]
+> **This trade-off creates a barrier** for organizations that need a **hybrid solution** combining the benefits of both
+> private and public blockchains.
 
-## 🚀 Features
+# 💡 Double Zero Framework
 
-### Privacy and access control
-- ✅ Authentication and authorization using Sign In With Ethereum (SIWE).
-- ✅ Data scoped per user based on user permissions.
+Double Zero addresses the need for **both privacy and interoperability**, offering organizations the best of both
+worlds: **the ability to operate within a secure, private, and controlled** blockchain environment while still *
+*leveraging the tools of the broader Ethereum/Elastic-Chain ecosystem**.
 
-### Block Explorer
-- ✅ View transactions, blocks, transfers and logs.
-- ✅ Inspect accounts, contracts, tokens and balances.
-- ✅ Verify smart contracts.
-- ✅ Interact with smart contracts.
-- ✅ Standalone HTTP API.
-- ✅ Local node support.
+Deploying private Validium chains with **zero-knowledge proofs** ensures transaction data confidentiality and chain
+security. Implementing **zero-access** through authorization and permission management layers enables granular control
+over data access and smart contract interactions.
 
-## 📋 Prerequisites
+> [!IMPORTANT]
+> Offering a near-turnkey solution via **ZK Stack technology** simplifies the process of setting up the Validium chain,
+> customizing features to meet specific needs, and reducing technical barriers and deployment time. Maintaining a
+> connection to the Elastic-Chain/Ethereum settlement layer enables organizations to **bridge assets**, re-utilize *
+*public smart contracts and dApps**, and leverage existing **development tools** and **resources**.
 
-- Ensure you have `node >= 18.0.0` and `yarn >= 1.20` installed.
+## ⚙️ Components
 
-## 🛠 Installation
+Double Zero consists of three main components. Below, we'll cover the rationale behind these choices and their
+implications:
 
-```bash
-yarn install
-```
+1. [**Validium Chain**](#️-why-validium)
+2. [**Permission-Based Proxy (Private RPC)**](#-proxy-implementation-for-validium-rpc)
+3. [**Private Block Explorer**](#-private-block-explorer)
 
-## ⚙️ Setting up env variables
+## ⛓️ Why Validium?
 
-### Manually set up env variables
-Make sure you have set up all the necessary env variables. Follow setting up env variables instructions for [Worker](./packages/worker#setting-up-env-variables), [Data Fetcher](./packages/data-fetcher#setting-up-env-variables) and [API](./packages/api#setting-up-env-variables). For the [App](./packages/app) package you might want to edit environment config, see [Environment configs](./packages/app#environment-configs).
+Selecting the appropriate Layer 2 solution is **crucial for achieving our goals of privacy, scalability, control,
+customizability, and interoperability**. Validium is a strategic choice that empowers entities like banks, financial
+institutions, and corporations to harness blockchain technology effectively without compromising security or
+functionality.
 
-### Build env variables based on your [zksync-era](https://github.com/matter-labs/zksync-era) local repo setup
-Make sure you have [zksync-era](https://github.com/matter-labs/zksync-era) repo set up locally. You must have your environment variables files present in the [zksync-era](https://github.com/matter-labs/zksync-era) repo at `/etc/env/*.env` for the build envs script to work.
+### 1. Privacy Aspects
 
-The following script sets `.env` files for [Worker](./packages/worker), [Data Fetcher](./packages/data-fetcher), [API](./packages/api) and [Proxy](./packages/proxy) packages as well as environment configuration file for [App](./packages/app) package based on your local [zksync-era](https://github.com/matter-labs/zksync-era) repo setup.
+Validium enhances privacy by storing transaction data off-chain, ensuring sensitive information remains confidential and
+inaccessible to unauthorized parties. **Organizations have full control over data access**, aligning with Double Zero's
+Zero-Access principle.
 
-```bash
-yarn run hyperchain:configure
-```
-You can review and edit generated files if you need to change any settings.
+On Ethereum, only minimal data is posted—specifically, cryptographic commitments like state roots and zero-knowledge
+proofs. **These proofs validate off-chain transactions' correctness without revealing transaction details**, maintaining
+privacy while ensuring security.
 
-## 👨‍💻 Running locally
+Since transaction data isn't stored on-chain, **it's impossible to reconstruct the Validium chain's transaction history
+from L1 data alone**, further enhancing privacy and protecting sensitive information.
 
-Before running the solution, make sure you have a database server up and running, you have created a database and set up all the required environment variables.
-To create a database run the following command:
-```bash
-yarn run db:create
-```
+### 2. Scalability
 
-To run all the packages (`Worker`, `Data Fetcher`, `API`, `Proxy` and front-end `App`) in `development` mode run the following command from the root directory.
-```bash
-yarn dev
-```
+Validium excels in scalability by processing thousands of transactions per second, far surpassing Layer 1 and many Layer
+2 solutions. By **storing data off-chain**, Validium reduces the computational and storage burden on the Ethereum
+network, **leading to faster transaction processing and confirmation times**. This approach also **lowers gas costs,
+making transactions more cost-effective.**
 
-For `production` mode run:
-```bash
-yarn build
-yarn start
-```
+The efficient resource utilization allows the network to scale seamlessly without compromising performance, making it
+ideal for enterprise-grade applications that demand high throughput.
 
-Each component can also be started individually. Follow individual packages `README` for details.
+### 3. Sequencer/Prover Control
 
-## 🐳 Running in Docker
-There is a docker compose configuration that allows you to run Block Explorer and all its dependencies in docker. Just run the following command to spin up the whole environment:
-```
-docker compose up
-```
-It will run local Ethereum node, ZkSync Era, Postgres DB and all Block Explorer services.
+A crucial aspect of Validium is the control it grants over the sequencer and prover components. Organizations can
+operate their own sequencers and provers, **giving them full control over transaction ordering and proof generation.**
 
-Another option is to run only the double zero services hitting external endpoints
-These can be done by upgrading the content `proxy.env` with the desired rpc and explorer
-urls. Then running:
+This operational autonomy allows for customized consensus mechanisms and security models tailored to specific
+organizational requirements. By reducing reliance on external parties, organizations enhance security and minimize trust
+assumptions—a critical factor for applications handling sensitive or proprietary data.
 
-``` shell
-docker compose -f docker-compose-00.yaml --env-file=proxy.env up
-```
+### 4. Customizability
 
-This is going to spin only the services needed to make a functional
-double zero setup against the specified environment.
+Validium chains deployed using ZK Stack offer extensive customizability. Network parameters such as block times, gas
+limits, and fee structures can be adjusted to optimize performance and user experience.
 
+### 5. Interoperability with Ethereum
 
-## ⛓️ Connection to your Hyperchain
-To get block-explorer connected to your ZK Stack Hyperchain you need to set up all the the necessary environment and configuration files with your Hyperchain settings. You can use a script to build them. See [Setting up env variables](#%EF%B8%8F-setting-up-env-variables).
+Interoperability is a significant advantage of the Validium chain, as it enables seamless integration with the Ethereum
+ecosystem. Organizations can bridge assets between the Validium chain and Ethereum, tapping into Ethereum's liquidity
+and its extensive array of decentralized applications.
 
-## 🔍 Verify Block Explorer is up and running
+Developers benefit from using familiar Ethereum tools and frameworks, which reduces the learning curve and accelerates
+development timelines.
 
-To verify front-end `App` is running open http://localhost:3010 in your browser. `API` should be available at http://localhost:3020, `Worker` at http://localhost:3001 and `Data Fetcher` at http://localhost:3040.
+> [!TIP]
+> For more information on Validium configurations please
+> visit: [ZK Stack Validium Chain docs.](https://docs.zksync.io/zk-stack/running-a-zk-chain/validium)
 
-## 🕵️‍♂️ Testing
-Run unit tests for all packages:
-```bash
-yarn test
-```
-Run e2e tests for all packages:
-```bash
-yarn test:e2e
-```
-Run tests for a specific package:
-```bash
-yarn test -w {package}
-```
-For more details on testing please check individual packages `README`.
+## 🔐 Proxy Implementation for Validium RPC
 
-## 💻 Conventional Commits
-We follow the Conventional Commits [specification](https://www.conventionalcommits.org/en/v1.0.0/#specification).
+Implementing a proxy layer on top of the Validium RPC interface is a strategic decision to enhance security, access
+control, and usability. Given that our audience includes individuals familiar with traditional web2 technologies, we
+have designed the proxy to be configurable via a `YAML file`.
 
-## 📘 License
-ZKsync Era Block Explorer is distributed under the terms of either
+### Why the Proxy is Necessary
 
-- Apache License, Version 2.0, ([LICENSE-APACHE](LICENSE-APACHE) or <http://www.apache.org/licenses/LICENSE-2.0>)
-- MIT license ([LICENSE-MIT](LICENSE-MIT) or <http://opensource.org/licenses/MIT>)
+1. **Enforcing Zero-Access Principles:** The proxy acts as a gatekeeper, enforcing strict access controls in line with
+   the Zero-Access principle of Double Zero. It ensures that only authenticated and authorized users can interact with
+   the Validium chain.
+2. **Authentication and Authorization:** Direct exposure of the Validium RPC can pose security risks. A proxy allows for
+   the implementation of robust authentication and authorization mechanisms to verify user identities and permissions
+   before granting access. The proxy mitigates security threats by filtering and validating incoming requests.
 
-at your option.
+### YAML-Based Permission Configuration
 
-## 🔗 Production links
-- Testnet Sepolia API: https://block-explorer-api.sepolia.zksync.dev
-- Mainnet API: https://block-explorer-api.mainnet.zksync.io
-- Testnet Sepolia App: https://sepolia.explorer.zksync.io
-- Mainnet App: https://explorer.zksync.io
+To cater to a web2 audience and simplify the permission management process, we utilize a `YAML file` to define access
+controls
+
+Addresses are organized into groups, each associated with specific access rights:
+
+- **Groups:** Logical collections of users/addresses that share the same permissions
+- **Permissions:** Define what contracts or methods a group can access.
+
+You can find an example of this configuration
+at [example-permissions.yaml](./compose-proxy-permissions.yaml) file used for one of our demos.
+
+## 👀 Private Block Explorer
+
+**Double Zero** Block Explorer is a customized version of
+the [ZKsync Era Block Explorer](https://github.com/matter-labs/block-explorer) that introduces a layer of privacy and
+access control.
+
+By implementing user **authentication and permission-based data restrictions**, it ensures that users can access
+blockchain data according to their assigned permissions.
+
+> [!TIP]
+> For more details on this implementation, please refer to the [README-blockExplorer](./README.md) file.
+
+## 🎯 **Conclusion**
+
+**Double Zero** offers a robust framework that bridges the gap between **privacy** and **interoperability** in
+blockchain technology.
+
+This hybrid approach ensures:
+
+- **Privacy**: Confidential data remains protected through off-chain storage and granular access control.
+- **Interoperability**: Seamless integration with the broader Ethereum and ZKsync ecosystems, enabling access to
+  existing assets, dApps, and tools.
+- **Scalability**: High throughput and cost-efficiency, ideal for enterprise-grade applications.
+- **Ease of Use**: Turnkey deployment and familiar tools ensure minimal technical barriers for adoption.
+
+By leveraging the power of **Validium chains**, **zero-knowledge proofs**, and **zero-access principles**, it delivers a
+secure, scalable, and customizable platform tailored to meet the demands of organizations like banks, financial
+institutions, and corporations seeking to maintain privacy and access management while harnessing the benefits of
+blockchain technology.
