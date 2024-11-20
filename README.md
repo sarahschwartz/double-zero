@@ -15,7 +15,7 @@ Chain with access control features and scoped data access.*
 Organizations face a recurring challenge: balancing the need for secure, controlled systems with the advantages of
 public blockchain integration.
 
-- **Private and Controlled Systems**: Banks, exchanges and brokerss among others require controlled environments for
+- **Private and Controlled Systems**: Banks, exchanges and brokers among others require controlled environments for
   sensitive operations, ensuring compliance with regulations and safeguarding competitive assets.
 - **Open Ecosystems**: Public networks like Ethereum and ZKsync provide rich development tools, liquidity, and access to
   decentralized applications. However, their transparency often conflicts with privacy requirements.
