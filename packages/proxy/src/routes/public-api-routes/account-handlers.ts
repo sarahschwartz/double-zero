@@ -5,10 +5,8 @@ import { isAddressEqual } from 'viem';
 import { getUserOrThrow } from '../../services/user.js';
 import { buildUrl } from '../../utils/url.js';
 import { HttpError } from '../../utils/http-error.js';
-
-const withAddressSchema = z.object({
-  address: addressSchema,
-});
+import { publicTxSchema, withAddressSchema } from './schemas.js';
+import { paginate, passIfAddressIsCurrentUser } from './generic-handlers.js';
 
 const withManyAddressesSchema = z.object({
   address: z
@@ -16,39 +14,6 @@ const withManyAddressesSchema = z.object({
     .transform((s) => s.split(',').map((s) => s.trim()))
     .pipe(z.array(addressSchema)),
 });
-
-const publicTxSchema = z.union([
-  z.object({
-    status: z.literal('1'),
-    message: z.string(),
-    result: z.array(
-      z
-        .object({
-          from: addressSchema,
-          to: addressSchema,
-        })
-        .passthrough(),
-    ),
-  }),
-  z.object({
-    status: z.literal('0'),
-    message: z.string(),
-    result: z.any(),
-  }),
-]);
-
-const numberSchema = z.coerce.number().optional();
-
-function paginate<T>(
-  list: T[],
-  page: string | undefined,
-  offset: string | undefined,
-): T[] {
-  const pageSize = numberSchema.default(10).parse(offset);
-  const pageNumber = numberSchema.default(1).parse(page) - 1;
-  const start = pageNumber * pageSize;
-  return list.slice(start, start + pageSize);
-}
 
 /**
  * If transactions of current user are requested, every tx can be seen.
@@ -125,16 +90,6 @@ const txlistinternal: Handler = async (app, req, reply) => {
   };
 
   return reply.send(filtered);
-};
-
-const passIfAddressIsCurrentUser: Handler = async (app, req, reply) => {
-  const user = getUserOrThrow(req);
-  const address = withAddressSchema.parse(req.query).address;
-
-  if (!isAddressEqual(user, address)) {
-    throw new HttpError('Only own address can be checked', 403);
-  }
-  return defaultHandler(app, req, reply);
 };
 
 const balancemulti: Handler = async (app, req, reply) => {

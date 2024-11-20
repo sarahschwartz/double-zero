@@ -7,10 +7,9 @@ import {
   validatorCompiler,
   type ZodTypeProvider,
 } from 'fastify-type-provider-zod';
-import { getAddress, type Address } from 'viem';
+import { getAddress, type Address, type Hex } from 'viem';
 import { allRoutes } from './routes/index.js';
 import { HttpError } from './utils/http-error.js';
-import type { Hex } from './utils/schemas.js';
 import cors from '@fastify/cors';
 import { verifyRequestOrigin } from './utils/requests.js';
 

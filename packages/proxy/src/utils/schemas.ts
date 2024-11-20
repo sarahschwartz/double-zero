@@ -1,9 +1,14 @@
 import { z, type ZodTypeAny } from 'zod';
-import type { Address } from 'viem';
+import type { Address, Hex } from 'viem';
 
-export const hexSchema = z.string().regex(/^0x[0-9a-fA-F]*$/);
-export type Hex = z.infer<typeof hexSchema>;
-export const addressSchema = hexSchema
+export const hexSchema = z
+  .string()
+  .regex(/^0x[0-9a-fA-F]*$/)
+  .transform((data) => data as Hex);
+
+export const addressSchema = z
+  .string()
+  .regex(/^0x[0-9a-fA-F]*$/)
   .length(42)
   .transform((a) => a as Address);
 

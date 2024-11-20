@@ -2,10 +2,13 @@ import { ModuleName } from './schemas.js';
 import { defaultHandler, Handler, Handlers } from './handlers.js';
 import { contractHandlers } from './contract-handlers.js';
 import { accountHandlers } from './account-handlers.js';
+import { logHandlers } from './log-handlers.js';
 
 const handlers: Partial<Handlers> = {
   contract: contractHandlers,
   account: accountHandlers,
+  block: {}, // All block actions are public. They don't leek tx information.
+  logs: logHandlers,
 };
 
 /**
