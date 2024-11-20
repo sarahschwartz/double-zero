@@ -8,7 +8,7 @@ export const modulesEnum = z.enum([
   'block',
   'logs',
   'token',
-  'stat',
+  'stats',
 ]);
 
 export type ModuleName = z.infer<typeof modulesEnum>;

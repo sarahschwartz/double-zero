@@ -6,9 +6,12 @@ import { logHandlers } from './log-handlers.js';
 
 const handlers: Partial<Handlers> = {
   contract: contractHandlers,
+  transaction: {}, // All transaction actions are public. They only show info about current tx.
   account: accountHandlers,
   block: {}, // All block actions are public. They don't leek tx information.
   logs: logHandlers,
+  token: {}, // All token actions are public. They do not list tx or token information at least the user know it from before
+  stats: {}, // Stat endpoints only show public data
 };
 
 /**
