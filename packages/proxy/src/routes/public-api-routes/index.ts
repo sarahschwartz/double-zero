@@ -1,9 +1,11 @@
 import { ModuleName } from './schemas.js';
 import { defaultHandler, Handler, Handlers } from './handlers.js';
 import { contractHandlers } from './contract-handlers.js';
+import { accountHandlers } from './account-handlers.js';
 
 const handlers: Partial<Handlers> = {
   contract: contractHandlers,
+  account: accountHandlers,
 };
 
 /**
