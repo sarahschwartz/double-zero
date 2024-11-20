@@ -58,56 +58,38 @@ implications:
 
 ## ⛓️ Why Validium?
 
-Selecting the appropriate Layer 2 solution is **crucial for achieving our goals of privacy, scalability, control,
-customizability, and interoperability**. Validium is a strategic choice that empowers entities like banks, financial
-institutions, and corporations to harness blockchain technology effectively without compromising security or
-functionality.
+Validium provides the ideal foundation for Double Zero by addressing key enterprise needs: security, scalability, and interoperability. Here's why it stands out:
 
-### 1. Privacy Aspects
+### 1. **Privacy**
+- Transaction data remains off-chain, ensuring confidentiality and protecting sensitive information.
+- Only cryptographic commitments (state roots and proofs) are stored on-chain, validating transactions without exposing details.
+- This architecture prevents transaction history reconstruction from on-chain data, further safeguarding privacy.
 
-Validium enhances privacy by storing transaction data off-chain, ensuring sensitive information remains confidential and
-inaccessible to unauthorized parties. **Organizations have full control over data access**, aligning with Double Zero's
-Zero-Access principle.
+### 2. **Scalability**
+- Processes thousands of transactions per second, far exceeding Layer 1 and many Layer 2 solutions.
+- Off-chain data storage reduces computational and storage demands on Ethereum, enabling:
+  - Faster processing.
+  - Lower gas fees.
+- Designed for enterprise-grade applications requiring high throughput and cost efficiency.
 
-On Ethereum, only minimal data is posted—specifically, cryptographic commitments like state roots and zero-knowledge
-proofs. **These proofs validate off-chain transactions' correctness without revealing transaction details**, maintaining
-privacy while ensuring security.
+### 3. **Control**
+- Organizations can operate their own sequencers and provers, maintaining full control over:
+  - Transaction ordering.
+  - Proof generation.
+- Customizable consensus and security models adapt to specific operational needs, reducing reliance on external parties.
 
-Since transaction data isn't stored on-chain, **it's impossible to reconstruct the Validium chain's transaction history
-from L1 data alone**, further enhancing privacy and protecting sensitive information.
+### 4. **Customizability**
+- Flexible configurations allow organizations to optimize performance:
+  - Adjustable block times.
+  - Tailored gas limits and fee structures.
+  - Specialized operational rules.
 
-### 2. Scalability
+### 5. **Interoperability**
+- Seamlessly integrates with Ethereum and the ZKsync ecosystem.
+- Bridges assets between private Validium chains and public networks, leveraging Ethereum's liquidity and rich dApp ecosystem.
+- Developers can utilize familiar tools, accelerating adoption and reducing the learning curve.
 
-Validium excels in scalability by processing thousands of transactions per second, far surpassing Layer 1 and many Layer
-2 solutions. By **storing data off-chain**, Validium reduces the computational and storage burden on the Ethereum
-network, **leading to faster transaction processing and confirmation times**. This approach also **lowers gas costs,
-making transactions more cost-effective.**
-
-The efficient resource utilization allows the network to scale seamlessly without compromising performance, making it
-ideal for enterprise-grade applications that demand high throughput.
-
-### 3. Sequencer/Prover Control
-
-A crucial aspect of Validium is the control it grants over the sequencer and prover components. Organizations can
-operate their own sequencers and provers, **giving them full control over transaction ordering and proof generation.**
-
-This operational autonomy allows for customized consensus mechanisms and security models tailored to specific
-organizational requirements. By reducing reliance on external parties, organizations enhance security and minimize trust
-assumptions—a critical factor for applications handling sensitive or proprietary data.
-
-### 4. Customizability
-
-Validium chains deployed using ZK Stack offer extensive customizability. Network parameters such as block times, gas
-limits, and fee structures can be adjusted to optimize performance and user experience.
-
-### 5. Interoperability with Ethereum
-
-Interoperability is a significant advantage of the Validium chain, as it enables seamless integration with the Ethereum
-ecosystem. Organizations can bridge assets between the Validium chain and Ethereum, tapping into Ethereum's liquidity
-and its extensive array of decentralized applications.
-
-Developers benefit from using familiar Ethereum tools and frameworks, which reduces the learning curve and accelerates
-development timelines.
+By combining off-chain privacy, high transaction throughput, and seamless integration with public networks, Validium chain configuration empowers organizations to deploy secure, scalable, and interoperable blockchain solutions tailored to their unique requirements.
 
 > [!TIP]
 > For more information on Validium configurations please
