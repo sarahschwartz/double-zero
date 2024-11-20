@@ -3,6 +3,8 @@ import { enumeratedSchema } from './schemas.js';
 import { wrapIntoPaginationInfo } from './pagination.js';
 import { z, ZodTypeAny } from 'zod';
 
+const numberSchema = z.coerce.number().optional();
+
 export async function requestAndFilterCollection<Parser extends ZodTypeAny>(
   baseUrl: string,
   query: Record<string, number | string>,
@@ -20,8 +22,8 @@ export async function requestAndFilterCollection<Parser extends ZodTypeAny>(
     .then((res) => res.json())
     .then((json) => finalSchema.parse(json));
 
-  const pageSize = Number(query.limit || 10);
-  const pageNumber = Number(query.page || 1) - 1;
+  const pageSize = numberSchema.default(10).parse(query.limit);
+  const pageNumber = numberSchema.default(1).parse(query.page) - 1;
 
   const start = pageNumber * pageSize;
   const filtered = res.items.filter(filter).slice(start, start + pageSize);
