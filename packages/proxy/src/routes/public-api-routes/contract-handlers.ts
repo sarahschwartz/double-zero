@@ -3,7 +3,7 @@ import { getContractOwner } from '../../services/rpc.js';
 import { z } from 'zod';
 import { addressSchema } from '../../utils/schemas.js';
 import { HttpError } from '../../utils/http-error.js';
-import { isAddressEqual } from 'viem';
+import { isAddressEqual, zeroAddress } from 'viem';
 import { getUserOrThrow } from '../../services/user.js';
 
 const withAddressSchema = z.object({
@@ -17,6 +17,13 @@ const withCreatorAddressSchema = z
   })
   .passthrough();
 
+/**
+ * Only the owner of the contract is allowed to require the source code.
+ * TODO: We could also allow the deployer.
+ * @param app
+ * @param req
+ * @param reply
+ */
 const getsourcecode: Handler = async (app, req, reply) => {
   const user = getUserOrThrow(req);
   const address = withAddressSchema.parse(req.query).address;
@@ -29,8 +36,15 @@ const getsourcecode: Handler = async (app, req, reply) => {
   return defaultHandler(app, req, reply);
 };
 
+/**
+ * We only allow users to see deployments of things that they have deployed
+ * to avoid reveal transaction ids out of the scope of the current user.
+ * @param app
+ * @param req
+ * @param reply
+ */
 const getcontractcreation: Handler = async (app, req, reply) => {
-  const user = getUserOrThrow(req);
+  const user = req.user || zeroAddress;
   const targetUrl = `${app.conf.proxyTarget}${req.url}`;
   const data = await fetch(targetUrl)
     .then((res) => res.json())
