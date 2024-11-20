@@ -120,37 +120,32 @@ to their unique requirements.
 
 ## 🔐 Proxy Implementation for Validium RPC
 
-Implementing a proxy layer on top of the Validium RPC interface is a strategic decision to enhance security, access
-control, and usability. Given that our audience includes individuals familiar with traditional web2 technologies, we
-have designed the proxy to be configurable via a `YAML file`.
+The proxy layer enhances security, streamlines access control, and improves usability when interacting with the Validium RPC interface. Designed with simplicity and versatility in mind, the proxy is configurable via a user-friendly `YAML file`, catering to both technical and non-technical audiences.
 
-### Why the Proxy is Necessary
+### Key Benefits of the Proxy
 
-1. **Enforcing Zero-Access Principles:** The proxy acts as a gatekeeper, enforcing strict access controls in line with
-   the Zero-Access principle of Double Zero. It ensures that only authenticated and authorized users can interact with
-   the Validium chain.
-2. **Authentication and Authorization:** Direct exposure of the Validium RPC can pose security risks. A proxy allows for
-   the implementation of robust authentication and authorization mechanisms to verify user identities and permissions
-   before granting access. The proxy mitigates security threats by filtering and validating incoming requests.
+1. **Enforcing Zero-Access Principles**: Acts as a gatekeeper, ensuring only authenticated and authorized users can interact with the Validium chain, in line with Double Zero's access control philosophy.
+2. **Enhanced Security**: Protects the Validium RPC interface by filtering and validating all incoming requests. This minimizes exposure to potential security risks, such as unauthorized access or malicious actions.
+3. **Streamlined Authentication and Authorization**: Integrates robust mechanisms to verify user identities and permissions before granting access, ensuring strict adherence to organizational policies.
 
 ### YAML-Based Permission Configuration
 
-To cater to a web2 audience and simplify the permission management process, we utilize a `YAML file` to define access
-controls
+Double Zero is a **flexible framework**, allowing permission management to be tailored to specific organizational needs. The example implementation below showcases one approach, but it can be easily modified to accommodate unique workflows or compliance requirements.
 
-Addresses are organized into groups, each associated with specific access rights:
+Permissions are defined in a `YAML file` to simplify configuration and enhance accessibility, especially for web2-oriented teams:
 
-- **Groups:** Logical collections of users/addresses that share the same permissions
-- **Permissions:** Define what contracts or methods a group can access.
+- **Groups**: Logical collections of users or addresses sharing the same permissions.
+- **Permissions**: Specific contracts or methods that a group is allowed to access.
 
-You can find an example of this configuration
-at [example-permissions.yaml](./compose-proxy-permissions.yaml) file used for one of our demos.
+This flexibility ensures Double Zero can adapt to various industries and use cases, from financial institutions to decentralized platforms.
+
+You can explore an example configuration file in [example-permissions.yaml](./compose-proxy-permissions.yaml), demonstrating how groups and permissions can be structured in practice.
 
 ## 👀 Private Block Explorer
 
 **Double Zero** Block Explorer is a customized version of
 the [ZKsync Era Block Explorer](https://github.com/matter-labs/block-explorer) that introduces a layer of privacy and
-access control.
+access control. This tailored block explorer provides a secure, user-specific view of the blockchain.
 
 By implementing user **authentication and permission-based data restrictions**, it ensures that users can access
 blockchain data according to their assigned permissions.
