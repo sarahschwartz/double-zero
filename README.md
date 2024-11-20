@@ -3,7 +3,8 @@
 
 <p align="center">A private blockchain solution with access control features that leverage the ZKsync Elastic Chain ecosystem's development tools and interoperability.</p>
 
-![Double-Zero](architecture.png)*High-level architecture design for a “Double-Zero” implementation using a Validium Chain with access control features and scoped data access.*
+![Double-Zero](architecture.png)*High-level architecture design for a “Double-Zero” implementation using a Validium
+Chain with access control features and scoped data access.*
 
 > [!NOTE]
 > By combining ***Zero-Knowledge with Zero-Access***, it offers a unique value proposition for organizations seeking to
