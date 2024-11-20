@@ -3,7 +3,8 @@
 
 <p align="center">A private blockchain solution with access control features that leverage the ZKsync Elastic Chain ecosystem's development tools and interoperability.</p>
 
-![Double-Zero](architecture.png)*High-level architecture design for a “Double-Zero” implementation using a Validium Chain with access control features and scoped data access.*
+![Double-Zero](architecture.png)*High-level architecture design for a “Double-Zero” implementation using a Validium
+Chain with access control features and scoped data access.*
 
 > [!NOTE]
 > By combining ***Zero-Knowledge with Zero-Access***, it offers a unique value proposition for organizations seeking to
@@ -11,41 +12,53 @@
 
 ## ⚖️ Addressing Privacy vs. Interoperability
 
-Organizations face a recurring challenge: balancing the need for secure, controlled systems with the advantages of public blockchain integration.
+Organizations face a recurring challenge: balancing the need for secure, controlled systems with the advantages of
+public blockchain integration.
 
-- **Private and Controlled Systems**: Banks, exchanges and brokerss among others require controlled environments for sensitive operations, ensuring compliance with regulations and safeguarding competitive assets.  
-- **Open Ecosystems**: Public networks like Ethereum and ZKsync provide rich development tools, liquidity, and access to decentralized applications. However, their transparency often conflicts with privacy requirements.
+- **Private and Controlled Systems**: Banks, exchanges and brokers among others require controlled environments for
+  sensitive operations, ensuring compliance with regulations and safeguarding competitive assets.
+- **Open Ecosystems**: Public networks like Ethereum and ZKsync provide rich development tools, liquidity, and access to
+  decentralized applications. However, their transparency often conflicts with privacy requirements.
 
 > [!CAUTION]
-> **This trade-off creates a barrier** for organizations that need a **hybrid solution** combining the benefits of both private and controlled systems in the public blockchain ecosystem.
+> **This trade-off creates a barrier** for organizations that need a **hybrid solution** combining the benefits of both
+> private and controlled systems in the public blockchain ecosystem.
 
 ## 💡 The Double Zero Framework
 
-**Double Zero** empowers organizations to operate within private blockchain environments while seamlessly connecting to public networks. This is achieved through:
+**Double Zero** empowers organizations to operate within private blockchain environments while seamlessly connecting to
+public networks. This is achieved through:
 
-- **Validium Chains**: Ensures confidentiality by keeping sensitive data off-chain while leveraging zero-knowledge proofs for verification.
+- **Validium Chains**: Ensures confidentiality by keeping sensitive data off-chain while leveraging zero-knowledge
+  proofs for verification.
 - **Authorization Layers**: Implements granular control over user and transaction permissions.
 - **Turnkey Deployment**: Simplifies setup with ZK Stack technology, enabling fast integration and customizations.
 
-With this approach, organizations maintain control over their data and processes while accessing Ethereum-compatible tools and decentralized applications.
+With this approach, organizations maintain control over their data and processes while accessing Ethereum-compatible
+tools and decentralized applications.
 
 ## 🚀 Example Use Cases
 
 ### 1. **KYC-Required Actions**
-- **Problem**: Ensuring compliance with KYC regulations for accessing blockchain-based services.  
-- **Solution**: Implement Zero-Access principles to restrict blockchain interactions to KYC-verified users.  
+
+- **Problem**: Ensuring compliance with KYC regulations for accessing blockchain-based services.
+- **Solution**: Implement Zero-Access principles to restrict blockchain interactions to KYC-verified users.
 - **Example**: A bank allows only verified clients to perform transactions, blocking access for non-clients.
 
 ### 2. **Permissioned Asset Management**
-- **Problem**: Preventing users from interacting with unapproved assets, such as those restricted due to regional compliance.  
-- **Solution**: Use a granular permission system to limit access to specific tokens or contract methods.  
-- **Example**: An exchange enables trading only for whitelisted tokens based on the user's region or group, ensuring regulatory compliance.
 
+- **Problem**: Preventing users from interacting with unapproved assets, such as those restricted due to regional
+  compliance.
+- **Solution**: Use YAML-configured permissions to limit access to specific tokens or contract methods.
+- **Example**: An exchange enables trading only for whitelisted tokens based on the user's region or group, ensuring
+  regulatory compliance.
 
 ### 3. **Privacy-Preserved Account Management**
-- **Problem**: Avoiding data breaches by restricting access to other users' balances or transaction histories.  
-- **Solution**: Deploy a private block explorer to allow users to view only their own account data.  
-- **Example**: A broker ensures clients can securely access their balances and transaction details without exposing other users' trade information.
+
+- **Problem**: Avoiding data breaches by restricting access to other users' balances or transaction histories.
+- **Solution**: Deploy a private block explorer to allow users to view only their own account data.
+- **Example**: A broker ensures clients can securely access their balances and transaction details without exposing
+  other users' trade information.
 
 ## ⚙️ Components
 
@@ -58,38 +71,48 @@ implications:
 
 ## ⛓️ Why Validium?
 
-Validium provides the ideal foundation for Double Zero by addressing key enterprise needs: security, scalability, and interoperability. Here's why it stands out:
+Validium provides the ideal foundation for Double Zero by addressing key enterprise needs: security, scalability, and
+interoperability. Here's why it stands out:
 
 ### 1. **Privacy**
+
 - Transaction data remains off-chain, ensuring confidentiality and protecting sensitive information.
-- Only cryptographic commitments (state roots and proofs) are stored on-chain, validating transactions without exposing details.
+- Only cryptographic commitments (state roots and proofs) are stored on-chain, validating transactions without exposing
+  details.
 - This architecture prevents transaction history reconstruction from on-chain data, further safeguarding privacy.
 
 ### 2. **Scalability**
+
 - Processes thousands of transactions per second, far exceeding Layer 1 and many Layer 2 solutions.
 - Off-chain data storage reduces computational and storage demands on Ethereum, enabling:
-  - Faster processing.
-  - Lower gas fees.
+    - Faster processing.
+    - Lower gas fees.
 - Designed for enterprise-grade applications requiring high throughput and cost efficiency.
 
 ### 3. **Control**
+
 - Organizations can operate their own sequencers and provers, maintaining full control over:
-  - Transaction ordering.
-  - Proof generation.
+    - Transaction ordering.
+    - Proof generation.
 - Customizable consensus and security models adapt to specific operational needs, reducing reliance on external parties.
 
 ### 4. **Customizability**
+
 - Flexible configurations allow organizations to optimize performance:
-  - Adjustable block times.
-  - Tailored gas limits and fee structures.
-  - Specialized operational rules.
+    - Adjustable block times.
+    - Tailored gas limits and fee structures.
+    - Specialized operational rules.
 
 ### 5. **Interoperability**
+
 - Seamlessly integrates with Ethereum and the ZKsync ecosystem.
-- Bridges assets between private Validium chains and public networks, leveraging Ethereum's liquidity and rich dApp ecosystem.
+- Bridges assets between private Validium chains and public networks, leveraging Ethereum's liquidity and rich dApp
+  ecosystem.
 - Developers can utilize familiar tools, accelerating adoption and reducing the learning curve.
 
-By combining off-chain privacy, high transaction throughput, and seamless integration with public networks, Validium chain configuration empowers organizations to deploy secure, scalable, and interoperable blockchain solutions tailored to their unique requirements.
+By combining off-chain privacy, high transaction throughput, and seamless integration with public networks, Validium
+chain configuration empowers organizations to deploy secure, scalable, and interoperable blockchain solutions tailored
+to their unique requirements.
 
 > [!TIP]
 > For more information on Validium configurations please
