@@ -50,7 +50,7 @@ const getcontractcreation: Handler = async (app, req, reply) => {
     .then((res) => res.json())
     .then((json) => z.array(withCreatorAddressSchema).parse(json));
 
-  const some = data.find((obj) => isAddressEqual(obj.contractCreator, user));
+  const some = data.find((obj) => !isAddressEqual(obj.contractCreator, user));
 
   if (some) {
     throw new HttpError(
