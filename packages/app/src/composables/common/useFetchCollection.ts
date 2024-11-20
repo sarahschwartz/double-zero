@@ -55,6 +55,7 @@ export function useFetchCollection<T, TApiResponse = T>(
         : (response.items as unknown as T[]);
       total.value = response.meta.totalItems;
     } catch (_error) {
+      console.error(_error);
       failed.value = true;
       data.value = null;
     } finally {
