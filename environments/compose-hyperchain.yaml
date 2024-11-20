@@ -45,6 +45,8 @@ services:
     build:
       context: ..
       dockerfile: ./packages/api/Dockerfile
+    ports:
+      - "3021:3021"
     environment:
       PORT: "3021"
       METRICS_PORT: "3005"
