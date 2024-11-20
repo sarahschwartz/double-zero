@@ -19,21 +19,34 @@ export function wrapIntoPaginationInfo<T>(
   collection: T[],
   linksBaseUri: string,
   limit: number,
+  totalItems = collection.length,
+  currentPage = 1,
+  totalPages = collection.length === 0 ? 0 : 1,
 ): Paginated<T> {
+  const previous =
+    currentPage === 1
+      ? ''
+      : `${linksBaseUri}?limit=${limit}&page=${currentPage - 1}`;
+
+  const next =
+    currentPage >= totalPages
+      ? ''
+      : `${linksBaseUri}?limit=${limit}&page=${currentPage + 1}`;
+
   return {
     items: collection,
     meta: {
-      totalItems: collection.length,
+      totalItems: totalItems,
       itemCount: collection.length,
       itemsPerPage: limit,
-      totalPages: collection.length === 0 ? 0 : 1,
-      currentPage: 1,
+      totalPages: totalPages,
+      currentPage: currentPage,
     },
     links: {
       first: `${linksBaseUri}?limit=${limit}`,
-      previous: '',
-      next: '',
-      last: `${linksBaseUri}?page=1&limit=${limit}`,
+      previous: previous,
+      next: next,
+      last: `${linksBaseUri}?page=${totalPages}&limit=${limit}`,
     },
   };
 }

@@ -2,7 +2,7 @@ name: 'double-zero-app'
 services:
   app:
     build:
-      context: .
+      context: ..
       dockerfile: ./packages/app/Dockerfile
     ports:
       - '3010:3010'
@@ -12,7 +12,7 @@ services:
 
   data-fetcher:
     build:
-      context: .
+      context: ..
       dockerfile: ./packages/data-fetcher/Dockerfile
     environment:
       PORT: "3040"
@@ -22,7 +22,7 @@ services:
 
   worker:
     build:
-      context: .
+      context: ..
       dockerfile: ./packages/worker/Dockerfile
     environment:
       PORT: "3001"
@@ -43,7 +43,7 @@ services:
 
   api:
     build:
-      context: .
+      context: ..
       dockerfile: ./packages/api/Dockerfile
     environment:
       PORT: "3021"
@@ -56,7 +56,7 @@ services:
 
   proxy:
     build:
-      context: .
+      context: ..
       dockerfile: ./packages/proxy/Dockerfile
     ports:
       - "4040:4040"
@@ -71,7 +71,7 @@ services:
 
   private-rpc-migrate:
     build:
-      context: .
+      context: ..
       dockerfile: ./packages/private-rpc/Dockerfile
     command: sh -c "yarn db:migrate"
     depends_on:
@@ -82,7 +82,7 @@ services:
 
   private-rpc:
     build:
-      context: .
+      context: ..
       dockerfile: ./packages/private-rpc/Dockerfile
     volumes:
       - ./validium-permissions.yaml:/app/permissions.yaml

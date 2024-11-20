@@ -1,4 +1,4 @@
-import { addressRoutes } from './address.js';
+import { addressRoutes } from './address-bff.js';
 import type { FastifyApp } from '../app.js';
 import authRoutes from './auth.js';
 import { blocksRoutes } from './blocks-bff.js';

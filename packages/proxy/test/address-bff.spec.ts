@@ -59,7 +59,8 @@ describe('/address', () => {
         z.any(),
       );
 
-      expect(status).toEqual(401);
+      // Here we expect 403 because access addresses in general is public (because of contracts).
+      expect(status).toEqual(403);
     });
 
     it('when user logged in and requested address is user address returns address data', async () => {
@@ -92,15 +93,16 @@ describe('/address', () => {
       expect(status).toEqual(403);
     });
 
-    it('when user is not logged in returns Unauthorized', async () => {
+    it('when user is not logged in returns Forbidden', async () => {
+      backgroundApp.setNextAddress('account', address);
       const app = testInstance();
       const res = await app.inject({
         method: 'GET',
         url: `/address/${address}`,
       });
 
-      expect(res.statusCode).toEqual(401);
-      expect(res.json()).toEqual({ error: 'User not authenticated' });
+      expect(res.statusCode).toEqual(403);
+      expect(res.json()).toEqual({ error: 'Forbidden' });
     });
   });
 
