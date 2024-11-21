@@ -60,13 +60,13 @@ export default function authRoutes(app: FastifyApp) {
     return reply.send(response.body);
   });
 
+  app.get('/user', async (req, reply) => {
+    const user = getUserOrThrow(req);
+    return reply.send({ address: user });
+  });
+
   // We define this routes only in development.
   if (env.NODE_ENV === 'development') {
-    app.get('/user', async (req, reply) => {
-      const user = getUserOrThrow(req);
-      return reply.send({ address: user });
-    });
-
     const becomesOpts = {
       schema: { querystring: z.object({ address: addressSchema }) },
     };
