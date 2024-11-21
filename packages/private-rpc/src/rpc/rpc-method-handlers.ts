@@ -7,6 +7,12 @@ import { zks_getAllAccountBalances } from '@/rpc/methods/zks_getAllAccountBalanc
 import { whoAmI } from '@/rpc/methods/who-am-i';
 import { zks_getRawBlockTransactions } from '@/rpc/methods/zks_getRawBlockTransactions';
 import { zks_getProof } from '@/rpc/methods/zks_getProof';
+import {
+  debug_traceBlockByHash,
+  debug_traceBlockByNumber,
+  debug_traceCall,
+  debug_traceTransaction
+} from '@/rpc/methods/debug_methods';
 
 export const allHandlers = [
   zks_getAllAccountBalances,
@@ -16,4 +22,8 @@ export const allHandlers = [
   whoAmI,
   zks_sendRawTransactionWithDetailedOutput,
   eth_sendRawTransaction,
+  debug_traceBlockByHash,
+  debug_traceBlockByNumber,
+  debug_traceCall,
+  debug_traceTransaction,
 ];
