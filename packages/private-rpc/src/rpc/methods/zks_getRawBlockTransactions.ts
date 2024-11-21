@@ -1,6 +1,5 @@
 import { MethodHandler, RequestContext } from '@/rpc/rpc-service';
 import { FastifyReplyType } from 'fastify/types/type-provider';
-import { delegateCall } from '@/rpc/delegate-call';
 import { request } from '@/rpc/json-rpc';
 import { z } from 'zod';
 import { addressSchema } from '@/schemas/address';

@@ -1,15 +1,4 @@
-import { MethodHandler, RequestContext } from '@/rpc/rpc-service';
-import { FastifyReplyType } from 'fastify/types/type-provider';
-import { unauthorized } from '@/rpc/json-rpc';
+import { MethodHandler } from '@/rpc/rpc-service';
+import { forbiddenMethod } from '@/rpc/methods/utils';
 
-export const zks_getProof: MethodHandler = {
-  name: 'zks_getProof',
-  async handle(
-    _context: RequestContext,
-    _method: string,
-    _params: unknown[],
-    id: number | string,
-  ): Promise<FastifyReplyType> {
-    return unauthorized(id);
-  },
-};
+export const zks_getProof: MethodHandler = forbiddenMethod('zks_getProof');
