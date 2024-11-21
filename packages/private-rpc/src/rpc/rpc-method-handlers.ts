@@ -11,8 +11,10 @@ import {
   debug_traceBlockByHash,
   debug_traceBlockByNumber,
   debug_traceCall,
-  debug_traceTransaction
+  debug_traceTransaction,
 } from '@/rpc/methods/debug_methods';
+import { forbiddenMethod } from '@/rpc/methods/utils';
+import { eth_getLogs } from '@/rpc/methods/eth_getLogs';
 
 export const allHandlers = [
   zks_getAllAccountBalances,
@@ -26,4 +28,7 @@ export const allHandlers = [
   debug_traceBlockByNumber,
   debug_traceCall,
   debug_traceTransaction,
+  eth_getLogs,
+  forbiddenMethod('eth_newFilter'),
+  forbiddenMethod('eth_newPendingTransactionFilter'),
 ];

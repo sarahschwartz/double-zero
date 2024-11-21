@@ -20,3 +20,7 @@ export function forbiddenMethod(name: string): MethodHandler {
     },
   };
 }
+
+export function areHexEqual(a: Hex, b: Hex): boolean {
+  return a.toLowerCase() === b.toLowerCase();
+}
