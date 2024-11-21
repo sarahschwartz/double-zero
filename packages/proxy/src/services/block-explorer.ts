@@ -10,6 +10,23 @@ export async function pipeGetRequest(url: string, reply: FastifyReply) {
   return reply.send(response.body);
 }
 
+export async function pipePostRequest(
+  url: string,
+  body: object,
+  reply: FastifyReply,
+) {
+  const response = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  addPipedHeader('content-type', reply, response);
+  addPipedHeader('content-length', reply, response);
+
+  return reply.send(response.body);
+}
+
 function addPipedHeader(
   header: HttpHeader,
   reply: FastifyReply,

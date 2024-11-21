@@ -7,6 +7,8 @@ import {
 } from '../services/auth-session.js';
 import { getUserOrThrow } from '../services/user.js';
 import { env } from '../env.js';
+import { addressSchema } from '../utils/schemas.js';
+import { z } from 'zod';
 
 export default function authRoutes(app: FastifyApp) {
   app.get('/nonce', async (req, reply) => {
@@ -58,9 +60,33 @@ export default function authRoutes(app: FastifyApp) {
     return reply.send(response.body);
   });
 
-  // FIXME: This is a temporary route to get the user address.
   app.get('/user', async (req, reply) => {
     const user = getUserOrThrow(req);
     return reply.send({ address: user });
   });
+
+  // We define this routes only in development.
+  if (env.NODE_ENV === 'development') {
+    const becomesOpts = {
+      schema: { querystring: z.object({ address: addressSchema }) },
+    };
+    app.get('/sudo', becomesOpts, async (req, _reply) => {
+      try {
+        saveAuthSession(req, {
+          siwe: {
+            success: true,
+            data: new SiweMessage({
+              address: req.query.address,
+              domain: 'localhost',
+              uri: 'http://localhost:3000',
+              version: '1',
+            }),
+          },
+        });
+      } catch (e) {
+        console.error(e);
+      }
+      return 'ok';
+    });
+  }
 }
