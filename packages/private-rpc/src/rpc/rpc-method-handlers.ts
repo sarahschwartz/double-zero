@@ -17,6 +17,7 @@ import { forbiddenMethod } from '@/rpc/methods/utils';
 import { eth_getLogs } from '@/rpc/methods/eth_getLogs';
 import { eth_getBalance } from '@/rpc/methods/eth_getBalance';
 import { eth_getBlockByHash, eth_getBlockByNumber } from '@/rpc/methods/eth_getBlockByNumber';
+import { eth_getBlockReceipts } from '@/rpc/methods/eth_getBlockReceipts';
 
 export const allHandlers = [
   zks_getAllAccountBalances,
@@ -34,6 +35,7 @@ export const allHandlers = [
   eth_getBalance,
   eth_getBlockByNumber,
   eth_getBlockByHash,
+  eth_getBlockReceipts,
   forbiddenMethod('eth_newFilter'),
   forbiddenMethod('eth_newPendingTransactionFilter'),
 ];
