@@ -1,6 +1,5 @@
 import { MethodHandler, RequestContext } from '@/rpc/rpc-service';
 import { FastifyReplyType } from 'fastify/types/type-provider';
-import { request } from '@/rpc/json-rpc';
 import { z } from 'zod';
 import { hexSchema } from '@/schemas/hex';
 import { padHex } from 'viem';

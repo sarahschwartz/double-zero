@@ -1,9 +1,5 @@
 import { MethodHandler, RequestContext } from '@/rpc/rpc-service';
-import {
-  areHexEqual,
-  forbiddenMethod,
-  sendToTargetRpc,
-} from '@/rpc/methods/utils';
+import { areHexEqual, sendToTargetRpc } from '@/rpc/methods/utils';
 import { z } from 'zod';
 import { FastifyReplyType } from 'fastify/types/type-provider';
 import { addressSchema } from '@/schemas/address';
