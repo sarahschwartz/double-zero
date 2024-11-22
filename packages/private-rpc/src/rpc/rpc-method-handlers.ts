@@ -13,11 +13,12 @@ import {
   debug_traceCall,
   debug_traceTransaction,
 } from '@/rpc/methods/debug_methods';
-import { forbiddenMethod } from '@/rpc/methods/utils';
+import { forbiddenMethod, onlyCurrentUser } from '@/rpc/methods/utils';
 import { eth_getLogs } from '@/rpc/methods/eth_getLogs';
 import { eth_getBalance } from '@/rpc/methods/eth_getBalance';
 import { eth_getBlockByHash, eth_getBlockByNumber } from '@/rpc/methods/eth_getBlockByNumber';
 import { eth_getBlockReceipts } from '@/rpc/methods/eth_getBlockReceipts';
+import { eth_getTransactionReceipt } from '@/rpc/methods/eth_getTransactionReceipt';
 
 export const allHandlers = [
   zks_getAllAccountBalances,
@@ -36,6 +37,10 @@ export const allHandlers = [
   eth_getBlockByNumber,
   eth_getBlockByHash,
   eth_getBlockReceipts,
+  eth_getTransactionReceipt,
   forbiddenMethod('eth_newFilter'),
   forbiddenMethod('eth_newPendingTransactionFilter'),
+  forbiddenMethod('eth_getStorageAt'),
+  onlyCurrentUser('eth_getTransactionCount'),
+  forbiddenMethod('eth_getTransactionByBlockHashAndIndex'),
 ];
