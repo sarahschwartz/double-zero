@@ -4,7 +4,7 @@ import { request } from '@/rpc/json-rpc';
 import { z } from 'zod';
 import { hexSchema } from '@/schemas/hex';
 import { padHex } from 'viem';
-import { areHexEqual } from '@/rpc/methods/utils';
+import { areHexEqual, sendToTargetRpc } from '@/rpc/methods/utils';
 
 const schema = z
   .object({
@@ -28,13 +28,13 @@ export const eth_getLogs: MethodHandler = {
     params: unknown[],
     id: number | string,
   ): Promise<FastifyReplyType> {
-    const data = await fetch(context.targetRpcUrl, {
-      method: 'POST',
-      body: JSON.stringify(request({ id, method, params })),
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then((res) => res.json())
-      .then((json) => schema.parse(json));
+    const data = await sendToTargetRpc(
+      context.targetRpcUrl,
+      id,
+      method,
+      params,
+      schema,
+    );
 
     const filtered = data.result.filter((log) =>
       log.topics.some((t) => areHexEqual(padHex(context.currentUser), t)),

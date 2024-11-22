@@ -4,6 +4,7 @@ import { request } from '@/rpc/json-rpc';
 import { z } from 'zod';
 import { addressSchema } from '@/schemas/address';
 import { isAddressEqual } from 'viem';
+import { sendToTargetRpc } from '@/rpc/methods/utils';
 
 const schema = z
   .object({
@@ -31,13 +32,13 @@ export const zks_getRawBlockTransactions: MethodHandler = {
     params: unknown[],
     id: number | string,
   ): Promise<FastifyReplyType> {
-    const data = await fetch(context.targetRpcUrl, {
-      method: 'POST',
-      body: JSON.stringify(request({ id, method, params })),
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then((res) => res.json())
-      .then((json) => schema.parse(json));
+    const data = await sendToTargetRpc(
+      context.targetRpcUrl,
+      id,
+      method,
+      params,
+      schema,
+    );
 
     const filtered = data.result.filter((r) =>
       isAddressEqual(r.common_data.L2.initiatorAddress, context.currentUser),
