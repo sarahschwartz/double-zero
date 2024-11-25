@@ -6,14 +6,33 @@ import { addressSchema } from '@/schemas/address';
 import { Address, Hex, toFunctionSelector } from 'viem';
 import {
   AccessRule,
+  ArgumentIsCaller,
   GroupRule,
-  Permission,
+  OneOfRule,
   PublicRule,
 } from '@/permissions/access-rules';
+import { Permission } from '@/permissions/permission';
 
-const PUBLIC_LITERAL = '*';
+const publicSchema = z.object({ type: z.literal('public') });
+const groupSchema = z.object({
+  type: z.literal('group'),
+  groups: z.array(z.string()),
+});
+const checkArgumentSchema = z.object({
+  type: z.literal('checkArgument'),
+  argIndex: z.number(),
+});
+const oneOfSchema = z.object({
+  type: z.literal('oneOf'),
+  rules: z.array(z.union([publicSchema, groupSchema, checkArgumentSchema])),
+});
 
-const ruleSchema = z.union([z.literal(PUBLIC_LITERAL), z.array(z.string())]);
+const ruleSchema = z.union([
+  publicSchema,
+  groupSchema,
+  checkArgumentSchema,
+  oneOfSchema,
+]);
 type Rule = z.infer<typeof ruleSchema>;
 
 const methodSchema = z
@@ -74,11 +93,21 @@ export class YamlParser {
   }
 
   private hidrateRule(rule: Rule): AccessRule {
-    if (rule === PUBLIC_LITERAL) {
-      return new PublicRule();
-    } else {
-      const members = rule.map((name) => this.membersForGroup(name)).flat();
-      return new GroupRule(members);
+    switch (rule.type) {
+      case 'public':
+        return new PublicRule();
+      case 'group':
+        const members = rule.groups
+          .map((name) => this.membersForGroup(name))
+          .flat();
+        return new GroupRule(members);
+      case 'checkArgument':
+        return new ArgumentIsCaller(rule.argIndex);
+      case 'oneOf':
+        const rules = rule.rules.map((r) => this.hidrateRule(r));
+        return new OneOfRule(rules);
+      default:
+        throw new Error('Unknown rule type');
     }
   }
 

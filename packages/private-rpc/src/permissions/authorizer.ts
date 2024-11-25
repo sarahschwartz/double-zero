@@ -2,10 +2,11 @@ import { Address, Hex } from 'viem';
 import {
   AccessDeniedRule,
   AccessRule,
-  Permission,
+
 } from '@/permissions/access-rules';
 import YAML from 'yaml';
 import { YamlParser } from '@/permissions/yaml-parser';
+import { Permission } from '@/permissions/permission';
 
 export class Authorizer {
   permissions: Map<string, AccessRule>;
