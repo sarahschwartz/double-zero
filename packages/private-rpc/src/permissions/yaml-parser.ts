@@ -70,12 +70,15 @@ export class YamlParser {
   }
 
   private extractRule(method: RawMethod, key: 'read' | 'write'): AccessRule {
-    if (method[key] === PUBLIC_LITERAL) {
+    const rule_def = method[key];
+    if (rule_def === undefined) {
+      throw new Error('Previous parser step prevents this');
+    }
+
+    if (rule_def === PUBLIC_LITERAL) {
       return new PublicRule();
     } else {
-      const members = method[key]
-        .map((name) => this.membersForGroup(name))
-        .flat();
+      const members = rule_def.map((name) => this.membersForGroup(name)).flat();
       return new GroupRule(members);
     }
   }
