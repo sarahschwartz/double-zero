@@ -12,12 +12,16 @@ import {
 } from '@/permissions/access-rules';
 
 const PUBLIC_LITERAL = '*';
+
+const ruleSchema = z.union([z.literal(PUBLIC_LITERAL), z.array(z.string())]);
+type Rule = z.infer<typeof ruleSchema>;
+
 const methodSchema = z
   .object({
     selector: hexSchema.optional(),
     signature: z.string().optional(),
-    read: z.union([z.literal(PUBLIC_LITERAL), z.array(z.string())]),
-    write: z.union([z.literal(PUBLIC_LITERAL), z.array(z.string())]),
+    read: ruleSchema,
+    write: ruleSchema,
   })
   .refine((obj) => obj.signature !== undefined || obj.selector !== undefined);
 type RawMethod = z.infer<typeof methodSchema>;
@@ -69,16 +73,11 @@ export class YamlParser {
     );
   }
 
-  private extractRule(method: RawMethod, key: 'read' | 'write'): AccessRule {
-    const rule_def = method[key];
-    if (rule_def === undefined) {
-      throw new Error('Previous parser step prevents this');
-    }
-
-    if (rule_def === PUBLIC_LITERAL) {
+  private hidrateRule(rule: Rule): AccessRule {
+    if (rule === PUBLIC_LITERAL) {
       return new PublicRule();
     } else {
-      const members = rule_def.map((name) => this.membersForGroup(name)).flat();
+      const members = rule.map((name) => this.membersForGroup(name)).flat();
       return new GroupRule(members);
     }
   }
@@ -87,8 +86,8 @@ export class YamlParser {
     const permissions = this.yaml.contracts.map((rawContract) => {
       const readPermissions = rawContract.methods.map((method) => {
         const selector = this.extractSelector(method);
-        const readRule = this.extractRule(method, 'read');
-        const writeRule = this.extractRule(method, 'write');
+        const readRule = this.hidrateRule(method.read);
+        const writeRule = this.hidrateRule(method.write);
 
         return [
           Permission.contractRead(rawContract.address, selector, readRule),
