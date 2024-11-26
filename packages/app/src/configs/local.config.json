@@ -8,7 +8,7 @@
       ],
       "icon": "/images/icons/zksync-arrows.svg",
       "l2ChainId": 270,
-      "l2NetworkName": "Local",
+      "l2NetworkName": "Double Zero Local",
       "maintenance": false,
       "name": "local",
       "published": true,
