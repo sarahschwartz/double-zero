@@ -5,7 +5,6 @@ import { MethodHandler } from '@/rpc/rpc-service';
 import { isAddressEqual } from 'viem';
 import { unauthorized } from '@/rpc/json-rpc';
 import { delegateCall } from '@/rpc/delegate-call';
-import { extractSelector } from '@/rpc/methods/utils';
 
 const callReqSchema = z
   .object({

@@ -1,9 +1,4 @@
-import {
-  AbiFunction,
-  Address,
-  decodeFunctionData,
-  Hex,
-} from 'viem';
+import { AbiFunction, Address, decodeFunctionData, Hex } from 'viem';
 import { addressSchema } from '@/schemas/address';
 
 export interface AccessRule {
