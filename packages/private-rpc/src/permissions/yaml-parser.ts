@@ -18,6 +18,7 @@ import {
   PublicRule,
 } from '@/permissions/access-rules';
 import { Permission } from '@/permissions/permission';
+import { ResponseIsCaller } from '@/permissions/filter-response';
 
 const publicSchema = z.object({ type: z.literal('public') });
 const groupSchema = z.object({
@@ -44,6 +45,9 @@ type Rule = z.infer<typeof ruleSchema>;
 const methodSchema = z.object({
   signature: z.string(),
   read: ruleSchema,
+  postRead: z.optional(
+    z.object({ type: z.literal('responseIsCurrentUser'), index: z.number() }),
+  ),
   write: ruleSchema,
 });
 type RawMethod = z.infer<typeof methodSchema>;
@@ -110,11 +114,23 @@ export class YamlParser {
   }
 
   parse(): Authorizer {
-    const permissions = this.yaml.contracts.map((rawContract) => {
+    const authorizer = new Authorizer();
+    this.yaml.contracts.forEach((rawContract) => {
       const readPermissions = rawContract.methods.map((method) => {
         const selector = this.extractSelector(method);
         const readRule = this.hidrateRule(method.read, method.signature);
         const writeRule = this.hidrateRule(method.write, method.signature);
+        authorizer.addReadRule(rawContract.address, selector, readRule);
+        authorizer.addWriteRule(rawContract.address, selector, writeRule);
+
+        if (method.postRead) {
+          const [fnDef] = parseAbi([method.signature]) as Abi;
+          const filter = new ResponseIsCaller(
+            fnDef as AbiFunction,
+            method.postRead.index,
+          );
+          authorizer.addPostReadFilter(rawContract.address, selector, filter);
+        }
 
         return [
           Permission.contractRead(rawContract.address, selector, readRule),
@@ -125,6 +141,6 @@ export class YamlParser {
       return readPermissions.flat();
     });
 
-    return new Authorizer(permissions.flat());
+    return authorizer;
   }
 }
