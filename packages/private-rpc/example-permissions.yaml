@@ -9,17 +9,35 @@ contracts:
   - address: "0xBE06E7e23AA92a6B0523A0E7cBb43690De7af8DB"
     methods:
       - signature: "function number() (uint256)"
-        read: "*"
-        write: "*"
+        read:
+          type: "public"
+        write:
+          type: "public"
       - signature: "function owner() (address)"
-        read: ["group1"]
-        write: ["group1"]
+        read:
+          type: "group"
+          groups: ["group1"]
+        write:
+          type: "group"
+          groups: ["group1"]
       - signature: "function fromGroup1Address() public"
-        read: ["group1"]
-        write: ["group1"]
+        read:
+          type: "group"
+          groups: ["group1"]
+        write:
+          type: "group"
+          groups: ["group1"]
       - signature: "function fromGroup2Address() public"
-        read: ["group2"]
-        write: ["group2"]
+        read:
+          type: "group"
+          groups: ["group2"]
+        write:
+          type: "group"
+          groups: ["group2"]
       - signature: "function hiTo(address) public"
-        read: ["group1"]
-        write: ["group1"]
+        read:
+          type: "checkArgument"
+          argIndex: 0
+        write:
+          type: "checkArgument"
+          argIndex: 0

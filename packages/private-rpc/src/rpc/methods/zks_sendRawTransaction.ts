@@ -8,7 +8,6 @@ import {
 import { invalidRequest, unauthorized } from '@/rpc/json-rpc';
 import { addressSchema } from '@/schemas/address';
 import { delegateCall } from '@/rpc/delegate-call';
-import { extractSelector } from '@/rpc/methods/utils';
 
 export const zks_sendRawTransactionWithDetailedOutput: MethodHandler = {
   name: 'zks_sendRawTransactionWithDetailedOutput',
@@ -33,7 +32,7 @@ export const zks_sendRawTransactionWithDetailedOutput: MethodHandler = {
       tx.data &&
       !context.authorizer.checkContractWrite(
         txTo.data,
-        extractSelector(tx.data),
+        tx.data,
         context.currentUser,
       )
     ) {

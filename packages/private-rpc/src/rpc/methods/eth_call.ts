@@ -31,11 +31,7 @@ export const eth_call: MethodHandler = {
     const data = call.data || call.input;
     if (
       data &&
-      !context.authorizer.checkContractRead(
-        call.to,
-        extractSelector(data),
-        context.currentUser,
-      )
+      !context.authorizer.checkContractRead(call.to, data, context.currentUser)
     ) {
       return unauthorized(id);
     }

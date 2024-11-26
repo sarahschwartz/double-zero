@@ -1,8 +1,13 @@
-import { Address } from 'viem';
+import {
+  AbiFunction,
+  Address,
+  decodeFunctionData,
+  Hex,
+} from 'viem';
 import { addressSchema } from '@/schemas/address';
 
 export interface AccessRule {
-  canDo(user: Address, args: unknown[]): boolean;
+  canDo(user: Address, calldata: Hex): boolean;
 }
 
 export class PublicRule implements AccessRule {
@@ -36,19 +41,26 @@ export class OneOfRule implements AccessRule {
     this.rules = rules;
   }
 
-  canDo(user: Address, _args: unknown[]): boolean {
-    return this.rules.some((rule) => rule.canDo(user, _args));
+  canDo(user: Address, calldata: Hex): boolean {
+    return this.rules.some((rule) => rule.canDo(user, calldata));
   }
 }
 
 export class ArgumentIsCaller implements AccessRule {
   argIndex: number;
+  functionDef: AbiFunction;
 
-  constructor(argIndex: number) {
+  constructor(argIndex: number, functionDef: AbiFunction) {
     this.argIndex = argIndex;
+    this.functionDef = functionDef;
   }
 
-  canDo(user: Address, args: unknown[]): boolean {
+  canDo(user: Address, callData: Hex): boolean {
+    const { args } = decodeFunctionData({
+      abi: [this.functionDef],
+      data: callData,
+    });
+
     const arg = addressSchema.parse(args[this.argIndex]);
     return arg === user;
   }
