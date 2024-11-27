@@ -12,6 +12,10 @@ COPY yarn.lock .
 # Install all dependencies and build
 RUN yarn install --production=false
 COPY packages/app/ ./packages/app/
+
+ARG CONFIG_NAME="local"
+ENV VITE_APP_ENVIRONMENT=$CONFIG_NAME
+
 RUN yarn build
 
 FROM node:22-slim
