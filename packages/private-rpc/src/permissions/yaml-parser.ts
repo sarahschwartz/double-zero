@@ -1,25 +1,55 @@
 import { z } from 'zod';
-import { hexSchema } from '@/schemas/hex';
 import { Group } from '@/permissions/group';
 import { Authorizer } from '@/permissions/authorizer';
 import { addressSchema } from '@/schemas/address';
-import { Address, Hex, toFunctionSelector } from 'viem';
+import {
+  Abi,
+  AbiFunction,
+  Address,
+  Hex,
+  parseAbi,
+  toFunctionSelector,
+} from 'viem';
 import {
   AccessRule,
+  ArgumentIsCaller,
   GroupRule,
-  Permission,
+  OneOfRule,
   PublicRule,
 } from '@/permissions/access-rules';
+import { Permission } from '@/permissions/permission';
+import { ResponseIsCaller } from '@/permissions/filter-response';
 
-const PUBLIC_LITERAL = '*';
-const methodSchema = z
-  .object({
-    selector: hexSchema.optional(),
-    signature: z.string().optional(),
-    read: z.union([z.literal(PUBLIC_LITERAL), z.array(z.string())]),
-    write: z.union([z.literal(PUBLIC_LITERAL), z.array(z.string())]),
-  })
-  .refine((obj) => obj.signature !== undefined || obj.selector !== undefined);
+const publicSchema = z.object({ type: z.literal('public') });
+const groupSchema = z.object({
+  type: z.literal('group'),
+  groups: z.array(z.string()),
+});
+const checkArgumentSchema = z.object({
+  type: z.literal('checkArgument'),
+  argIndex: z.number(),
+});
+const oneOfSchema = z.object({
+  type: z.literal('oneOf'),
+  rules: z.array(z.union([publicSchema, groupSchema, checkArgumentSchema])),
+});
+
+const ruleSchema = z.union([
+  publicSchema,
+  groupSchema,
+  checkArgumentSchema,
+  oneOfSchema,
+]);
+type Rule = z.infer<typeof ruleSchema>;
+
+const methodSchema = z.object({
+  signature: z.string(),
+  read: ruleSchema,
+  postRead: z.optional(
+    z.object({ type: z.literal('responseIsCurrentUser'), index: z.number() }),
+  ),
+  write: ruleSchema,
+});
 type RawMethod = z.infer<typeof methodSchema>;
 
 const yamlSchema = z.object({
@@ -50,13 +80,7 @@ export class YamlParser {
   }
 
   private extractSelector(method: RawMethod): Hex {
-    if (method.selector !== undefined) {
-      return method.selector;
-    } else if (method.signature !== undefined) {
-      return toFunctionSelector(method.signature);
-    } else {
-      throw new Error('cannot extract selector');
-    }
+    return toFunctionSelector(method.signature);
   }
 
   private membersForGroup(groupName: string): Address[] {
@@ -69,23 +93,44 @@ export class YamlParser {
     );
   }
 
-  private extractRule(method: RawMethod, key: 'read' | 'write'): AccessRule {
-    if (method[key] === PUBLIC_LITERAL) {
-      return new PublicRule();
-    } else {
-      const members = method[key]
-        .map((name) => this.membersForGroup(name))
-        .flat();
-      return new GroupRule(members);
+  private hidrateRule(rule: Rule, fnSignature: string): AccessRule {
+    switch (rule.type) {
+      case 'public':
+        return new PublicRule();
+      case 'group':
+        const members = rule.groups
+          .map((name) => this.membersForGroup(name))
+          .flat();
+        return new GroupRule(members);
+      case 'checkArgument':
+        const [fnDef] = parseAbi([fnSignature]) as Abi;
+        return new ArgumentIsCaller(rule.argIndex, fnDef as AbiFunction);
+      case 'oneOf':
+        const rules = rule.rules.map((r) => this.hidrateRule(r, fnSignature));
+        return new OneOfRule(rules);
+      default:
+        throw new Error('Unknown rule type');
     }
   }
 
   parse(): Authorizer {
-    const permissions = this.yaml.contracts.map((rawContract) => {
+    const authorizer = new Authorizer();
+    this.yaml.contracts.forEach((rawContract) => {
       const readPermissions = rawContract.methods.map((method) => {
         const selector = this.extractSelector(method);
-        const readRule = this.extractRule(method, 'read');
-        const writeRule = this.extractRule(method, 'write');
+        const readRule = this.hidrateRule(method.read, method.signature);
+        const writeRule = this.hidrateRule(method.write, method.signature);
+        authorizer.addReadRule(rawContract.address, selector, readRule);
+        authorizer.addWriteRule(rawContract.address, selector, writeRule);
+
+        if (method.postRead) {
+          const [fnDef] = parseAbi([method.signature]) as Abi;
+          const filter = new ResponseIsCaller(
+            fnDef as AbiFunction,
+            method.postRead.index,
+          );
+          authorizer.addPostReadFilter(rawContract.address, selector, filter);
+        }
 
         return [
           Permission.contractRead(rawContract.address, selector, readRule),
@@ -96,6 +141,6 @@ export class YamlParser {
       return readPermissions.flat();
     });
 
-    return new Authorizer(permissions.flat());
+    return authorizer;
   }
 }

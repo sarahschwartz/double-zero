@@ -1,37 +1,8 @@
-import { Address, Hex } from 'viem';
-
-export class AccessRules {
-  members: Set<Address>;
-
-  constructor(members: Address[]) {
-    this.members = new Set(members);
-  }
-
-  isMember(caller: Address): boolean {
-    return this.members.has(caller);
-  }
-}
-
-export class MethodRule {
-  read: AccessRules[];
-  write: AccessRules[];
-
-  constructor(read: AccessRules[], write: AccessRules[]) {
-    this.read = read;
-    this.write = write;
-  }
-
-  canRead(caller: Address): boolean {
-    return this.read.some((g) => g.isMember(caller));
-  }
-
-  canWrite(caller: Address): boolean {
-    return this.write.some((g) => g.isMember(caller));
-  }
-}
+import { AbiFunction, Address, decodeFunctionData, Hex, isAddressEqual } from 'viem';
+import { addressSchema } from '@/schemas/address';
 
 export interface AccessRule {
-  canDo(user: Address): boolean;
+  canDo(user: Address, calldata: Hex): boolean;
 }
 
 export class PublicRule implements AccessRule {
@@ -58,28 +29,34 @@ export class GroupRule implements AccessRule {
   }
 }
 
-export class Permission {
-  key: string;
-  rule: AccessRule;
+export class OneOfRule implements AccessRule {
+  rules: AccessRule[];
 
-  constructor(key: string, rule: AccessRule) {
-    this.key = key;
-    this.rule = rule;
+  constructor(rules: AccessRule[]) {
+    this.rules = rules;
   }
 
-  static contractRead(
-    addr: Address,
-    method: Hex,
-    rule: AccessRule,
-  ): Permission {
-    return new this(`read_contract:${addr}:${method}`, rule);
+  canDo(user: Address, calldata: Hex): boolean {
+    return this.rules.some((rule) => rule.canDo(user, calldata));
+  }
+}
+
+export class ArgumentIsCaller implements AccessRule {
+  argIndex: number;
+  functionDef: AbiFunction;
+
+  constructor(argIndex: number, functionDef: AbiFunction) {
+    this.argIndex = argIndex;
+    this.functionDef = functionDef;
   }
 
-  static contractWrite(
-    addr: Address,
-    method: Hex,
-    rule: AccessRule,
-  ): Permission {
-    return new this(`write_contract:${addr}:${method}`, rule);
+  canDo(user: Address, callData: Hex): boolean {
+    const { args } = decodeFunctionData({
+      abi: [this.functionDef],
+      data: callData,
+    });
+
+    const arg = addressSchema.parse(args[this.argIndex]);
+    return isAddressEqual(arg, user);
   }
 }
