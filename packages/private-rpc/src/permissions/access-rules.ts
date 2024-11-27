@@ -1,4 +1,4 @@
-import { AbiFunction, Address, decodeFunctionData, Hex } from 'viem';
+import { AbiFunction, Address, decodeFunctionData, Hex, isAddressEqual } from 'viem';
 import { addressSchema } from '@/schemas/address';
 
 export interface AccessRule {
@@ -57,6 +57,6 @@ export class ArgumentIsCaller implements AccessRule {
     });
 
     const arg = addressSchema.parse(args[this.argIndex]);
-    return arg === user;
+    return isAddressEqual(arg, user);
   }
 }
