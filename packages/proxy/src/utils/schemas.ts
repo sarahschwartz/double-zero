@@ -43,18 +43,12 @@ export const tokenSchema = z.object({
 });
 export type TokenData = z.infer<typeof tokenSchema>;
 
-export const transferSchema = z.object({
-  from: hexSchema,
-  to: hexSchema,
-  blockNumber: z.number(),
-  transactionHash: hexSchema,
-  amount: z.string(),
-  token: tokenSchema,
-  tokenAddress: hexSchema,
-  type: z.enum(['deposit', 'transfer', 'withdrawal', 'fee', 'mint', 'refund']),
-  timestamp: z.string(),
-  fields: z.any(),
-});
+export const transferSchema = z
+  .object({
+    from: hexSchema,
+    to: hexSchema,
+  })
+  .passthrough();
 
 export const logsSchema = z.object({
   address: addressSchema,
