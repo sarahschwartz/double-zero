@@ -28,7 +28,7 @@ export const eth_call: MethodHandler = {
     const call = callReqSchema.parse(params[0]);
 
     if (
-      call.from === undefined ||
+      call.from !== undefined &&
       !isAddressEqual(call.from, context.currentUser)
     ) {
       return unauthorized(id);
