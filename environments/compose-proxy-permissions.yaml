@@ -1,25 +1,199 @@
-groups:
-  - name: "group1"
-    members:
-      - "0xeaAFbF6Fc352B0598e34f4F282939720D9cf0f59"
-  - name: "group2"
-    members:
-      - "0x71e6dDfE9074786Fd8e986C53f78D25450d614D5"
+groups: []
 contracts:
-  - address: "0xBE06E7e23AA92a6B0523A0E7cBb43690De7af8DB"
+  # CPAMM
+  - address: "0x7fA7AF494F9C413a216073D651DD940af30Edc58"
     methods:
-      - signature: "function number() (uint256)"
-        read: "*"
-        write: "*"
-      - signature: "function owner() (address)"
-        read: ["group1"]
-        write: ["group1"]
-      - signature: "function fromGroup1Address() public"
-        read: ["group1"]
-        write: ["group1"]
-      - signature: "function fromGroup2Address() public"
-        read: ["group2"]
-        write: ["group2"]
-      - signature: "function hiTo(address) public"
-        read: ["group1"]
-        write: ["group1"]
+      - signature: function getReserves() external view returns (uint256, uint256)
+        read:
+          type: public
+        write:
+          type: closed
+      - signature: function swap(address _tokenIn, uint256 _amountIn) external returns (uint256)
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function addLiquidity(uint256 _amount0, uint256 _amount1) external returns (uint256 shares)
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function removeLiquidity(uint256 _shares) external returns (uint256 amount0, uint256 amount1)
+        read:
+          type: public
+        write:
+          type: public
+  # DAI
+  - address: "0x9B074216cE2302Da60E8a3505a40049B45ccdC6C"
+    methods:
+      - signature: function decimals() public view virtual returns (uint8)
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function mint(address _to, uint256 _amount) public returns (bool)
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function symbol() public view virtual returns (string memory)
+        read:
+          type: public
+        write:
+          type: public
+      - signature: totalSupply()
+        read:
+          type: public
+        write:
+          type: public
+      - signature: "function balanceOf(address) view returns (uint256)"
+        read:
+          type: checkArgument
+          argIndex: 0
+        write:
+          type: closed
+      - signature: "function allowance(address, address) view returns (uint256)"
+        read:
+          type: oneOf
+          rules:
+            - type: checkArgument
+              argIndex: 0
+            - type: checkArgument
+              argIndex: 1
+        write:
+          type: closed
+      - signature: function approve(address spender, uint256 value) public returns (bool)
+        # This doesn't leek information because we validate that current user
+        # is msg.sender.
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function transferFrom(address from, address to, uint256 value) public virtual returns (bool)
+        # This doesn't leek information because we validate that current user
+        # is msg.sender.
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function increaseAllowance(address spender, uint256 addedValue) returns bool
+        # This doesn't leek information because we validate that current user
+        # is msg.sender.
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function decreaseAllowance(address spender, uint256 addedValue) returns bool
+        # This doesn't leek information because we validate that current user
+        # is msg.sender.
+        read:
+          type: public
+        write:
+          type: public
+      - signature: authorizedBalanceOf(address)(uint256)
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function puclicThreshold(address target) public view returns (uint256, bool)
+        read:
+          type: public
+        write:
+          type: closed
+      - signature: function changePublicThreshold(uint256 publicThreshold) external
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function supportsInterface(bytes4) view
+        read:
+          type: public
+        write:
+          type: public
+  # WBTC
+  - address: "0xC855Ec8E08Ebe046B3D6bcd90d869d12cF382C2c"
+    methods:
+      - signature: function decimals() public view virtual returns (uint8)
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function mint(address _to, uint256 _amount) public returns (bool)
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function symbol() public view virtual returns (string memory)
+        read:
+          type: public
+        write:
+          type: public
+      - signature: totalSupply()
+        read:
+          type: public
+        write:
+          type: public
+      - signature: "function balanceOf(address) view returns (uint256)"
+        read:
+          type: checkArgument
+          argIndex: 0
+        write:
+          type: closed
+      - signature: "function allowance(address, address) view returns (uint256)"
+        read:
+          type: oneOf
+          rules:
+            - type: checkArgument
+              argIndex: 0
+            - type: checkArgument
+              argIndex: 1
+        write:
+          type: closed
+      - signature: function approve(address spender, uint256 value) public returns (bool)
+        # This doesn't leek information because we validate that current user
+        # is msg.sender.
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function transferFrom(address from, address to, uint256 value) public virtual returns (bool)
+        # This doesn't leek information because we validate that current user
+        # is msg.sender.
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function increaseAllowance(address spender, uint256 addedValue) returns bool
+        # This doesn't leek information because we validate that current user
+        # is msg.sender.
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function decreaseAllowance(address spender, uint256 addedValue) returns bool
+        # This doesn't leek information because we validate that current user
+        # is msg.sender.
+        read:
+          type: public
+        write:
+          type: public
+      - signature: authorizedBalanceOf(address)(uint256)
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function puclicThreshold(address target) public view returns (uint256, bool)
+        read:
+          type: public
+        write:
+          type: closed
+      - signature: function changePublicThreshold(uint256 publicThreshold) external
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function supportsInterface(bytes4) view
+        read:
+          type: public
+        write:
+          type: public
