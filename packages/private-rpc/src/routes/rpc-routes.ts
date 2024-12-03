@@ -18,6 +18,7 @@ export function rpcRoutes(app: WebServer) {
       targetRpcUrl: app.context.targetRpc,
       authorizer: app.context.authorizer,
     });
+    reply.header('content-type', 'application/json');
     const handlerResponse = await handler.handle(req.body);
     return reply.send(handlerResponse);
   });

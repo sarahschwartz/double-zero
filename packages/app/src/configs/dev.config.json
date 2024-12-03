@@ -2,13 +2,13 @@
   "networks": [
     {
       "apiUrl": "http://localhost:4040",
-      "verificationApiUrl": "https://explorer.sepolia.era.zksync.dev",
+      "verificationApiUrl": "http://localhost:3070",
       "bridgeUrl": "http://localhost:3000/bridge",
       "hostnames": [
         "localhost"
       ],
       "icon": "/images/icons/zksync-arrows.svg",
-      "l2ChainId": 300,
+      "l2ChainId": 288,
       "l2NetworkName": "Local",
       "maintenance": false,
       "name": "local",

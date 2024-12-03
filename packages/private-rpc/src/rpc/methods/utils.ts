@@ -44,7 +44,7 @@ export async function sendToTargetRpc<T extends ZodTypeAny>(
     .then((json) => schema.parse(json));
 }
 
-const onlyUserParamsSchema = z.array(addressSchema).length(1);
+const onlyUserParamsSchema = z.tuple([addressSchema]).rest(z.any()); // z.array(addressSchema).length(1);
 
 export function onlyCurrentUser(name: string) {
   return {

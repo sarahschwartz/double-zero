@@ -48,7 +48,7 @@ const addressResponseSchema = z.union([
     type: z.literal('account'),
     address: addressSchema,
     blockNumber: z.number(),
-    balances: z.record(hexSchema, accountBalanceSchema),
+    balances: z.record(hexSchema, z.any()),
     sealedNonce: z.number(),
     verifiedNonce: z.number(),
   }),

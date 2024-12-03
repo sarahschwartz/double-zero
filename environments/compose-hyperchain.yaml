@@ -52,6 +52,7 @@ services:
       METRICS_PORT: "3005"
       LOG_LEVEL: "verbose"
       DATABASE_URL: "postgres://postgres:postgres@explorer-db:5432/block-explorer"
+      CONTRACT_VERIFICATION_API_URL: ${CONTRACT_VERIFICATION_API_URL}
     depends_on:
       - worker
     restart: unless-stopped
@@ -87,7 +88,7 @@ services:
       context: ..
       dockerfile: ./packages/private-rpc/Dockerfile
     volumes:
-      - ./validium-permissions.yaml:/app/permissions.yaml
+      - ./compose-hyperchain-permissions.yaml:/app/permissions.yaml
     depends_on:
       db-private-rpc:
         condition: service_healthy
