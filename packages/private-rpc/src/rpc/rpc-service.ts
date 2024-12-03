@@ -9,7 +9,7 @@ const rpcReqSchema = z.object({
   id: z.union([z.number(), z.string()]),
   jsonrpc: z.literal('2.0'),
   method: z.string(),
-  params: z.array(z.any()),
+  params: z.array(z.any()).optional(),
 });
 
 export type RequestContext = {
@@ -98,7 +98,7 @@ export class RpcCallHandler {
 
   private async tryCall(
     method: string,
-    params: unknown[],
+    params: unknown[] = [],
     id: number | string,
   ) {
     const handler = this.handlers[method] || this.defaultHandler();
