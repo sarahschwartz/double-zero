@@ -15,7 +15,8 @@ const schema = z
         to: addressSchema,
         logs: z.array(z.object({ topics: z.array(hexSchema) }).passthrough()),
       })
-      .passthrough(),
+      .passthrough()
+      .nullable(),
   })
   .passthrough();
 
@@ -34,6 +35,10 @@ export const eth_getTransactionReceipt: MethodHandler = {
       params,
       schema,
     );
+
+    if (data.result === null) {
+      return data;
+    }
 
     const hasAccess =
       isAddressEqual(data.result.to, context.currentUser) ||
