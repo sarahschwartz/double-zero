@@ -11,6 +11,7 @@ import {
   toFunctionSelector,
 } from 'viem';
 import {
+  AccessDeniedRule,
   AccessRule,
   ArgumentIsCaller,
   GroupRule,
@@ -21,6 +22,7 @@ import { Permission } from '@/permissions/permission';
 import { ResponseIsCaller } from '@/permissions/filter-response';
 
 const publicSchema = z.object({ type: z.literal('public') });
+const closedSchema = z.object({ type: z.literal('closed') });
 const groupSchema = z.object({
   type: z.literal('group'),
   groups: z.array(z.string()),
@@ -36,6 +38,7 @@ const oneOfSchema = z.object({
 
 const ruleSchema = z.union([
   publicSchema,
+  closedSchema,
   groupSchema,
   checkArgumentSchema,
   oneOfSchema,
@@ -97,6 +100,8 @@ export class YamlParser {
     switch (rule.type) {
       case 'public':
         return new PublicRule();
+      case 'closed':
+        return new AccessDeniedRule();
       case 'group':
         const members = rule.groups
           .map((name) => this.membersForGroup(name))

@@ -7,7 +7,7 @@
         "localhost"
       ],
       "icon": "/images/icons/zksync-arrows.svg",
-      "l2ChainId": 270,
+      "l2ChainId": 288,
       "l2NetworkName": "Double Zero Local",
       "maintenance": false,
       "name": "local",
