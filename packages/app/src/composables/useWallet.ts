@@ -279,7 +279,7 @@ export default (
               decimals: 18,
             },
             rpcUrls: [rpcUrl],
-            blockExplorerUrls: [context.currentNetwork.value.explorerUrl],
+            blockExplorerUrls: [window.location.origin],
             iconUrls: ['https://zksync.io/favicon.ico'],
           },
         ],

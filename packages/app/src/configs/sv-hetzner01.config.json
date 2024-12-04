@@ -1,19 +1,19 @@
 {
   "networks": [
     {
-      "apiUrl": "http://localhost:4040",
-      "verificationApiUrl": "http://localhost:3070",
+      "apiUrl": "https://double-zero-proxy.sv-hetzner01.aon.ar",
+      "verificationApiUrl": "https://explorer.sepolia.era.zksync.dev",
       "bridgeUrl": "http://localhost:3000/bridge",
       "hostnames": [
-        "localhost"
+        "https://double-zero.sv-hetzner01.aon.ar"
       ],
       "icon": "/images/icons/zksync-arrows.svg",
-      "l2ChainId": 288,
+      "l2ChainId": 300,
       "l2NetworkName": "Local",
       "maintenance": false,
-      "name": "local",
+      "name": "Double Zero Sepolia Proxy",
       "published": true,
-      "rpcUrl": "http://localhost:4041/rpc",
+      "rpcUrl": "https://double-zero-rpc.sv-hetzner01.aon.ar/rpc",
       "baseTokenAddress": "0x000000000000000000000000000000000000800A"
     }
   ]
