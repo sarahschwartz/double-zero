@@ -1,2 +1,110 @@
-groups: []
-contracts: []
+groups:
+  - name: admins
+    members:
+      - "0xeaAFbF6Fc352B0598e34f4F282939720D9cf0f59"
+contracts:
+  - address: "0xCE5430eC9f0ce6Ef05dfCBa2826303e69c2dd5d4"
+    methods:
+      # ERC20 standard
+      - signature: function totalSupply() public view returns (uint256)
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function balanceOf(address account) public view returns (uint256)
+        read:
+          type: checkArgument
+          argIndex: 0
+        write:
+          type: closed
+      - signature: function allowance(address owner, address spender) public view returns (uint256)
+        read:
+          type: oneOf
+          rules:
+            - type: checkArgument
+              argIndex: 0
+            - type: checkArgument
+              argIndex: 1
+        write:
+          type: closed
+      - signature: function approve(address spender, uint256 value) public returns (bool)
+        # This doesn't leek information because we validate that current user
+        # is msg.sender.
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function transfer(address to, uint256 value) public returns (bool)
+        # This doesn't leek information because we validate that current user
+        # is msg.sender.
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function transferFrom(address from, address to, uint256 value) public returns (bool)
+        # This doesn't leek information because we validate that current user
+        # is msg.sender.
+        read:
+          type: public
+        write:
+          type: public
+
+      #
+      # Open Zeppelion extended methods
+      #
+      - signature: function increaseAllowance(address spender, address addedValue) public
+        # This doesn't leek information because we validate that current user
+        # is msg.sender.
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function decreaseAllowance(address spender, address subtractedValue) public
+        # This doesn't leek information because we validate that current user
+        # is msg.sender.
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function symbol() public view returns (string memory)
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function decimals() public view returns (uint8)
+        read:
+          type: public
+        write:
+          type: public
+
+      #
+      # IRC165
+      #
+      - signature: function supportsInterface(bytes4 interfaceID) external view returns (bool)
+        read:
+          type: public
+        write:
+          type: public
+
+      #
+      # Extended methods
+      #
+      - signature: function mint(address to, uint256 amount) public returns (bool)
+        read:
+          type: group
+          groups:
+            - admins
+        write:
+          type: group
+          groups:
+            - admins
+      - signature: function publicThreshold(address target) public view returns (uint256, bool)
+        read:
+          type: public
+        write:
+          type: closed
+      - signature: function changePublicThreshold(uint256 newThreshold) external
+        read:
+          type: public
+        write:
+          type: public
