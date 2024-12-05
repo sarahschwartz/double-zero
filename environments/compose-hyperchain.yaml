@@ -4,6 +4,8 @@ services:
     build:
       context: ..
       dockerfile: ./packages/app/Dockerfile
+      args:
+        CONFIG_NAME: 'hyperchain'
     ports:
       - '3010:3010'
     depends_on:
@@ -126,6 +128,8 @@ services:
       driver: none
     volumes:
       - explorer-db:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 5s

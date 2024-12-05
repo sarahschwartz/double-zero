@@ -19,7 +19,7 @@ const callReqSchema = z
 const callResponseSchema = z.object({
   jsonrpc: z.literal('2.0'),
   id: z.any(),
-  result: hexSchema,
+  result: hexSchema.optional(),
 });
 
 export const eth_call: MethodHandler = {
@@ -51,8 +51,12 @@ export const eth_call: MethodHandler = {
         params,
         callResponseSchema,
       );
+      if (!res.result) {
+        return unauthorized(id);
+      }
+
       if (rule.canRead(context.currentUser, res.result)) {
-        return response({ id, result: res });
+        return res;
       } else {
         return unauthorized(id);
       }
