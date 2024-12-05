@@ -108,3 +108,131 @@ contracts:
           type: public
         write:
           type: public
+
+  - address: "0x3Be9c8E1549A6b4ae591553816e98b886A5D5874"
+    methods:
+      # ERC164
+      - signature: function supportsInterface(bytes4 interfaceId) public view override(ERC165, IERC165) returns (bool)
+        read:
+          type: public
+        write:
+          type: closed
+      # IERC721
+      - signature: function balanceOf(address owner) public view returns (uint256)
+        read:
+          type: checkArgument
+          argIndex: 0
+        write:
+          type: closed
+      - signature: function ownerOf(uint256 tokenId) public view returns (address)
+        read:
+          type: public
+        write:
+          type: closed
+        postRead:
+          type: "responseIsCurrentUser"
+          index: 0
+      - signature: function safeTransferFrom(address from, address to, uint256 tokenId) public
+        read:
+          type: oneOf
+          rules:
+            - type: checkArgument
+              argIndex: 0
+            - type: checkArgument
+              argIndex: 1
+        write:
+          type: oneOf
+          rules:
+            - type: checkArgument
+              argIndex: 0
+            - type: checkArgument
+              argIndex: 1
+      - signature: function approve(address to, uint256 tokenId) public
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function getApproved(uint256 tokenId) public view returns (address)
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function setApprovalForAll(address operator, bool approved) public
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function isApprovedForAll(address owner, address operator) public view returns (bool)
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function safeTransferFrom(address from, address to, uint256 tokenId) public
+        # This work because we check that msg.sender is the current user and the method reverts
+        # if msg.sender has no permission over the token to move.
+        read:
+          type: public
+        write:
+          type: public
+      # ERC721Metadata
+      - signature: function name() public view returns (string)
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function symbol() public view rtual returns (string)
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function tokenURI(uint256 tokenId) public view returns (string memory)
+        read:
+          type: public
+        write:
+          type: public
+      # ERC721MetadataEnumerable
+      - signature: totalSupply()
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function tokenOfOwnerByIndex(address owner, uint256 index) public view returns (uint256)
+        read:
+          type: checkArgument
+          argIndex: 0
+        write:
+          type: checkArgument
+          argIndex: 0
+      - signature: function tokenByIndex(uint256 index) public view returns (uint256)
+        read:
+          type: checkArgument
+          argIndex: 0
+        write:
+          type: checkArgument
+          argIndex: 0
+
+      # Extender methods
+      - signature: function mintNext(address target) public returns (uint256)
+        read:
+          type: group
+          groups:
+            - admins
+        write:
+          type: group
+          groups:
+            - admins
+      - signature: function publicInventory(address owner) public view returns (uint256[])
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function expose(uint256 tokenId) public
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function hide(uint256 tokenId) public
+        read:
+          type: public
+        write:
+          type: public

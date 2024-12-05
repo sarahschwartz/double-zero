@@ -141,7 +141,13 @@ export const addressRoutes = (app: FastifyApp) => {
         baseUrl,
         req.query,
         transferSchema,
-        (transfer) => transfer.from === user || transfer.to === user,
+        (transfer) => {
+          return (
+            isAddressEqual(transfer.from, user) ||
+            isAddressEqual(transfer.to, user)
+          );
+        },
+
         limit,
       );
     },
