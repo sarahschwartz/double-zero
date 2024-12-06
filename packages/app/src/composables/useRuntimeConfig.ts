@@ -1,5 +1,6 @@
 import type { NetworkConfig, RuntimeConfig } from '@/configs';
 
+import { env } from '@/configs/env';
 import { checksumAddress } from '@/utils/formatters';
 export const DEFAULT_NETWORK: NetworkConfig = {
   apiUrl: 'https://block-explorer-api.sepolia.zksync.dev',
@@ -25,12 +26,10 @@ export default (): RuntimeConfig => {
   const runtimeConfig = window && window['##runtimeConfig'];
 
   return {
-    version: import.meta.env?.VITE_VERSION || 'localhost',
-    sentryDSN: runtimeConfig?.sentryDSN || import.meta.env?.VITE_SENTRY_DSN,
+    version: env.VITE_VERSION || 'localhost',
+    sentryDSN: runtimeConfig?.sentryDSN || env.VITE_SENTRY_DSN,
     appEnvironment:
-      runtimeConfig?.appEnvironment ||
-      import.meta.env?.VITE_APP_ENVIRONMENT ||
-      'default',
+      runtimeConfig?.appEnvironment || env.VITE_APP_ENVIRONMENT || 'default',
     environmentConfig: runtimeConfig?.environmentConfig,
   };
 };

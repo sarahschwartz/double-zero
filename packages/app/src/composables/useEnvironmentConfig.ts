@@ -6,13 +6,11 @@ import type {
   RuntimeConfig,
 } from '@/configs';
 
+import { env } from '@/configs/env';
 import { BASE_TOKEN_L2_ADDRESS } from '@/utils/constants';
 import { checksumAddress } from '@/utils/formatters';
 
 const config = ref<EnvironmentConfig | null>(null);
-
-const HYPERCHAIN_CONFIG_NAME = 'hyperchain';
-const DEVELOPMENT_CONFIG_NAME = 'dev';
 
 export async function loadEnvironmentConfig(
   runtimeConfig: RuntimeConfig,
@@ -23,22 +21,27 @@ export async function loadEnvironmentConfig(
     return;
   }
 
-  let envConfig: EnvironmentConfig;
-  if (runtimeConfig.appEnvironment === 'default') {
-    try {
-      envConfig = (
-        await import(`../configs/${HYPERCHAIN_CONFIG_NAME}.config.json`)
-      ).default;
-    } catch {
-      envConfig = (
-        await import(`../configs/${DEVELOPMENT_CONFIG_NAME}.config.json`)
-      ).default;
-    }
-  } else {
-    envConfig = (
-      await import(`../configs/${runtimeConfig.appEnvironment}.config.json`)
-    ).default;
-  }
+  const envConfig: EnvironmentConfig = {
+    networks: [
+      {
+        apiUrl: env.VITE_API_URL,
+        rpcUrl: env.VITE_RPC_URL,
+        name: env.VITE_NAME,
+        icon: env.VITE_ICON,
+        l2ChainId: env.VITE_L2_CHAIN_ID,
+        l2NetworkName: env.VITE_L2_NETWORK_NAME,
+        maintenance: env.VITE_MAINTENANCE,
+        published: env.VITE_PUBLISHED,
+        hostnames: env.VITE_HOSTNAMES,
+        baseTokenAddress: env.VITE_BASE_TOKEN_ADDRESS,
+        bridgeUrl: env.VITE_BRIDGE_URL,
+        verificationApiUrl: env.VITE_VERIFICATION_API_URL,
+        l1ExplorerUrl: env.VITE_L1_EXPLORER_URL,
+        zkTokenAddress: env.VITE_ZK_TOKEN_ADDRESS,
+        tokensMinLiquidity: env.VITE_TOKENS_MIN_LIQUIDITY,
+      },
+    ],
+  };
 
   envConfig.networks?.forEach((networkConfig) => {
     networkConfig.baseTokenAddress = checksumAddress(
