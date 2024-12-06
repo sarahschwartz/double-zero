@@ -5,7 +5,17 @@ services:
       context: ..
       dockerfile: ./packages/app/Dockerfile
       args:
-        CONFIG_NAME: "sv-hetzner01"
+        VITE_API_URL: ${APP_API_URL}
+        VITE_BRIDGE_URL: ${APP_BRIDGE_URL}
+        VITE_HOSTNAMES: ${APP_HOSTNAMES}
+        VITE_ICON: ${APP_ICON}
+        VITE_L2_CHAIN_ID: ${APP_L2_CHAIN_ID}
+        VITE_L2_NETWORK_NAME: ${APP_L2_NETWORK_NAME}
+        VITE_MAINTENANCE: ${APP_MAINTENANCE}
+        VITE_NAME: ${APP_NAME}
+        VITE_PUBLISHED: ${APP_PUBLISHED}
+        VITE_RPC_URL: ${APP_RPC_URL}
+        VITE_BASE_TOKEN_ADDRESS: ${APP_BASE_TOKEN_ADDRESS}
     ports:
       - '3010:3010'
     depends_on:
