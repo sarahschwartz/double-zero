@@ -85,7 +85,7 @@ services:
     working_dir: '/app/packages/private-rpc'
     command: [ "yarn", "dev" ]
     volumes:
-      - ./compose-hyperchain-permissions.yaml:/app/permissions.yaml
+      - ./compose-dev-hyperchain-permissions.yaml:/app/permissions.yaml
       - ../packages/private-rpc/src:/app/packages/private-rpc/src
     depends_on:
       db-private-rpc:
