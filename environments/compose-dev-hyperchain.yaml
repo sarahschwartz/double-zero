@@ -62,7 +62,7 @@ services:
   proxy:
     build:
       context: ..
-      dockerfile: environments/Dockerfile
+      dockerfile: environments/hyperchain-dev.Dockerfile
     working_dir: '/app/packages/proxy'
     command: [ "yarn", "dev" ]
     ports:
@@ -81,7 +81,7 @@ services:
   private-rpc:
     build:
       context: ..
-      dockerfile: environments/Dockerfile
+      dockerfile: environments/hyperchain-dev.Dockerfile
     working_dir: '/app/packages/private-rpc'
     command: [ "yarn", "dev" ]
     volumes:
