@@ -4,7 +4,7 @@ groups:
       - "0xeaAFbF6Fc352B0598e34f4F282939720D9cf0f59"
 contracts:
   # CPAMM
-  - address: "0xc5Edfeaa4dBCdF4A752245f1b83d3A35DAaBC6F5"
+  - address: "0x15607E87A1176Fd116e5609e1b4D35609c9D563f"
     methods:
       - signature: function getReserves() external view returns (uint256, uint256)
         read:
@@ -26,8 +26,23 @@ contracts:
           type: public
         write:
           type: public
+      - signature: function getUserFee(address user) returns (uint256)
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function getRemainingDailyAllowance(address) returns (uint256)
+        read:
+          type: public
+        write:
+          type: public
+      - signature: function balanceOf(address) returns (uint256)
+        read:
+          type: public
+        write:
+          type: closed
   # DAI
-  - address: "0xE39B250DC5856e7eB4e1A97516E2e164FEBD713f"
+  - address: "0x000139E9bc2C5079A8CE3aA87D3b5E8b50A85797"
     methods:
       - signature: function decimals() public view virtual returns (uint8)
         read:
@@ -114,7 +129,7 @@ contracts:
         write:
           type: public
   # WBTC
-  - address: "0x3d558A54E90f590c83d216aB8702f323bBad8Db6"
+  - address: "0x0764b659ea3153E3fa36F83e4Bf4cAC2b3d4c796"
     methods:
       - signature: function decimals() public view virtual returns (uint8)
         read:
