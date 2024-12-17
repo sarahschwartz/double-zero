@@ -182,7 +182,7 @@ APP_API_URL=http://localhost:4040
 APP_BRIDGE_URL=http://localhost:3000/bridge
 APP_HOSTNAMES=localhost
 APP_ICON=/images/icons/zksync-arrows.svg
-# Here you need to set your cahin id
+# Here you need to set your chain id
 APP_L2_CHAIN_ID=54678 # <-- your chain id.
 APP_L2_NETWORK_NAME=Double Zero Local
 APP_MAINTENANCE=false
