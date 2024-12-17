@@ -123,7 +123,7 @@ control:
 ? Recipient address on L2 <your_address>
 ```
 
-After this i s done you are going to have funds ready to use in your local validium chain.
+After this is done you are going to have funds ready to use in your local validium chain.
 
 ## 2. Double Zero
 
