@@ -30,7 +30,7 @@ We need zksync foundry to deploy the contracts that we’ll be using. Foundry ca
 
 https://foundry-book.zksync.io/getting-started/installation
 
-### 1.3 - install docker
+### 1.3 - Install docker
 
 We are going to use docker in several parts of this guide. Please follow the instructions for your OS before
 continue: https://docs.docker.com/engine/install/
