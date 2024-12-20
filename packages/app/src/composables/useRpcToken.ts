@@ -1,10 +1,10 @@
-import { computed, reactive } from 'vue';
+import { computed, ref } from 'vue';
 
 import { $fetch } from 'ohmyfetch';
 
 import useContext, { type Context } from './useContext';
 
-export const rpcToken = reactive<{ value: string | null }>({ value: null });
+export const rpcToken = ref<string | null>(null);
 
 export const rpcUrl = computed(() => {
   const { currentNetwork } = useContext();
