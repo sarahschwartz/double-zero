@@ -156,7 +156,9 @@ const steps = ref([
       await login();
       steps.value[2].isActive = true;
     },
-    completed: computed(() => !!context.user.value?.loggedIn),
+    completed: computed(
+      () => !!address.value && !!context.user.value?.loggedIn,
+    ),
     pending: computed(() => isLoginPending.value),
     isActive: false,
   },
@@ -167,12 +169,19 @@ const steps = ref([
     action: async () => {
       await connectToPrivateNetwork();
     },
-    completed: computed(() => !!rpcToken.value),
+    completed: computed(
+      () =>
+        !!address.value &&
+        !!context.user.value.loggedIn &&
+        !!rpcToken.value &&
+        !!rpcUrl.value,
+    ),
     pending: ref(false),
     isActive: false,
   },
 ]);
 
+// Sets the first incomplete step as active
 watchEffect(() => {
   steps.value.forEach((step) => (step.isActive = false));
 

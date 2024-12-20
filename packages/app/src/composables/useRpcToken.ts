@@ -20,10 +20,6 @@ export const rpcUrl = computed(() => {
 
 export default (context: Context) => {
   const updateRpcToken = async () => {
-    if (rpcToken.value !== null) {
-      return;
-    }
-
     const response = await $fetch<{ ok: true; token: string }>(
       `${context.currentNetwork.value.apiUrl}/auth/token`,
       {
