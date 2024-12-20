@@ -167,7 +167,8 @@ const steps = ref([
     title: 'Connect to Private Network',
     subtitle: 'Generate token for private network and connect',
     action: async () => {
-      await connectToPrivateNetwork();
+      await updateRpcToken();
+      steps.value[2].isActive = false;
     },
     completed: computed(
       () =>
@@ -190,10 +191,6 @@ watchEffect(() => {
     firstIncompleteStep.isActive = true;
   }
 });
-
-async function connectToPrivateNetwork() {
-  return updateRpcToken();
-}
 
 async function addNetworkToMetamask() {
   if (!rpcUrl.value) {
