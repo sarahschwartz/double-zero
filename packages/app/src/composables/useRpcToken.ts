@@ -1,11 +1,10 @@
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
-import { useStorage } from '@vueuse/core';
 import { $fetch } from 'ohmyfetch';
 
 import useContext, { type Context } from './useContext';
 
-export const rpcToken = useStorage<string | null>('useRpcToken_rpcToken', null);
+export const rpcToken = ref<string | null>(null);
 
 export const rpcUrl = computed(() => {
   const { currentNetwork } = useContext();

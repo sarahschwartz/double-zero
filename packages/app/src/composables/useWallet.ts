@@ -46,6 +46,7 @@ export type NetworkConfiguration = {
   l2ChainId: number;
   explorerUrl: string;
   chainName: string;
+  apiUrl: string;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
