@@ -122,7 +122,6 @@
 <script lang="ts" setup>
 import { computed, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRoute } from 'vue-router';
 
 import {
   Popover,
@@ -146,14 +145,8 @@ import ZkSyncEra from '@/components/icons/ZkSyncEra.vue';
 import useContext from '@/composables/useContext';
 import useLocalization from '@/composables/useLocalization';
 
-import {
-  isAddress,
-  isBlockNumber,
-  isTransactionHash,
-} from '@/utils/validators';
 const { changeLanguage } = useLocalization();
 const { t, locale } = useI18n({ useScope: 'global' });
-const route = useRoute();
 const { currentNetwork } = useContext();
 
 const navigation = reactive([
@@ -206,22 +199,6 @@ const socials = [
   { url: 'https://join.zksync.dev/', component: DiscordIcon },
   { url: 'https://twitter.com/zksync', component: TwitterIcon },
 ];
-
-const _hasContent = computed(() => {
-  if (route.name !== 'not-found' && !currentNetwork.value.maintenance) {
-    if (route.params.hash) {
-      return isTransactionHash(route.params.hash as string);
-    }
-    if (route.params.address) {
-      return isAddress(route.params.address as string);
-    }
-    if (route.params.id) {
-      return isBlockNumber(route.params.id as string);
-    }
-    return true;
-  }
-  return false;
-});
 </script>
 
 <style lang="scss">
