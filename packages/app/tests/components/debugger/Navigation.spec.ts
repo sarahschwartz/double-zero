@@ -6,10 +6,10 @@ import { fireEvent, render, waitFor } from '@testing-library/vue';
 
 import Navigation from '@/components/debugger/Navigation.vue';
 
-import testId from './../../e2e/testId.json';
 import enUS from '@/locales/en.json';
 
 import $testId from '@/plugins/testId';
+import testId from '@/utils/testId.js';
 
 describe('Navigation:', () => {
   const platform = vi.spyOn(window.navigator, 'userAgent', 'get');

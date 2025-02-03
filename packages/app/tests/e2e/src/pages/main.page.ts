@@ -5,22 +5,9 @@ import { ContractPage } from './contract.page';
 import { TokensPage } from './tokens.page';
 import { TransactionPage } from './transaction.page';
 
-import {
-  blocksNumber,
-  blocksTable,
-  fromAddress,
-  initiatorsAddress,
-  latestBatchesTable,
-  latestTransactionsTable,
-  toAddress,
-  tokenAddress,
-  tokensIcon,
-  tokensTable,
-  transactionsHash,
-  transactionsTable,
-} from '../../testId.json';
-
 import type { ICustomWorld } from '../support/custom-world';
+
+import elements from '@/utils/testId.js';
 
 let blockPage: BlockPage;
 let tokensPage: TokensPage;
@@ -94,51 +81,51 @@ export class MainPage extends BasePage {
   }
 
   get fromAddress() {
-    return `${this.byTestId}${fromAddress}`;
+    return `${this.byTestId}${elements.fromAddress}`;
   }
 
   get toAddress() {
-    return `${this.byTestId}${toAddress}`;
+    return `${this.byTestId}${elements.toAddress}`;
   }
 
   get initiatorAddress() {
-    return `${this.byTestId}${initiatorsAddress}`;
+    return `${this.byTestId}${elements.initiatorsAddress}`;
   }
 
   get tokenIcon() {
-    return `${this.byTestId}${tokensIcon}`;
+    return `${this.byTestId}${elements.tokensIcon}`;
   }
 
   get transactionsHash() {
-    return `${this.byTestId}${transactionsHash}`;
+    return `${this.byTestId}${elements.transactionsHash}`;
   }
 
   get tokenAddress() {
-    return `${this.byTestId}${tokenAddress}`;
+    return `${this.byTestId}${elements.tokenAddress}`;
   }
 
   get blockNumber() {
-    return `${this.byTestId}${blocksNumber}`;
+    return `${this.byTestId}${elements.blocksNumber}`;
   }
 
   get blocksTable() {
-    return blocksTable;
+    return elements.blocksTable;
   }
 
   get latestBatchesTable() {
-    return latestBatchesTable;
+    return elements.latestBatchesTable;
   }
 
   get latestTransactionTable() {
-    return latestTransactionsTable;
+    return elements.latestTransactionsTable;
   }
 
   get tokensTable() {
-    return tokensTable;
+    return elements.tokensTable;
   }
 
   get transactionsTable() {
-    return transactionsTable;
+    return elements.transactionsTable;
   }
 
   get networkStats() {
@@ -281,7 +268,7 @@ export class MainPage extends BasePage {
   }
 
   async getTokenFromColumn(columnName: string) {
-    const tokenIconId = `//*[@${this.byTestId}'${tokensIcon}']`;
+    const tokenIconId = `//*[@${this.byTestId}'${elements.tokensIcon}']`;
     const dataHeadingID = `//*[@${this.byDataHeading}'${columnName}']`;
     const textHeadingID = `//*[text()='${columnName}']`;
     element = `${dataHeadingID}${tokenIconId} | ${textHeadingID}/../..${tokenIconId}`;

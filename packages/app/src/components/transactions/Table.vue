@@ -377,7 +377,7 @@ const toDate = new Date();
 
 watch(
   [activePage, searchParams, user],
-  ([page]) => {
+  ([page, _a, _b]) => {
     if (user.value.loggedIn) {
       load(page, toDate);
     }

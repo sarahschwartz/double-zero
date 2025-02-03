@@ -7,7 +7,7 @@ import {
   describe,
   expect,
   it,
-  type SpyInstance,
+  type MockInstance,
   vi,
 } from 'vitest';
 
@@ -23,7 +23,7 @@ import {
 import Table from '@/components/transactions/Table.vue';
 
 import enUS from '@/locales/en.json';
-import elements from 'tests/e2e/testId.json';
+import elements from '@/utils/testId.js';
 
 import type { AbiFragment } from '@/composables/useAddress';
 import type { TransactionListItem } from '@/composables/useTransactions';
@@ -105,8 +105,8 @@ describe('Transfers:', () => {
     },
   });
 
-  let mockContext: SpyInstance;
-  let mockTransactions: SpyInstance;
+  let mockContext: MockInstance;
+  let mockTransactions: MockInstance;
 
   beforeEach(() => {
     mockContext = useContextMock();

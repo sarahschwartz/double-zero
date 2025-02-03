@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { BasePage } from './base.page';
 
-import { tokensIcon } from '../../testId.json';
-
 import type { ICustomWorld } from '../support/custom-world';
+
+import testId from '@/utils/testId.js';
 
 let element: any;
 
@@ -17,7 +17,7 @@ export class AccountPage extends BasePage {
   }
 
   get tokenIcon() {
-    return `${this.byTestId}${tokensIcon}`;
+    return `${this.byTestId}${testId.tokensIcon}`;
   }
 
   get firstTokenAsset() {
@@ -27,7 +27,7 @@ export class AccountPage extends BasePage {
   async configureTokenIcon() {
     const address: any = await this.world.page?.url();
     const id: object = await address.match(/[^s/]*$/g)[0];
-    const element = tokensIcon;
+    const element = testId.tokensIcon;
     const configuredElement = `//td[@data-heading='Fee']//a[@data-testid='${element}']`;
     if (await address.includes('blocks')) {
       return configuredElement;

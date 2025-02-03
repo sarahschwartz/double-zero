@@ -205,13 +205,7 @@ import { utcStringFromISOString } from '@/utils/helpers';
 
 const { t } = useI18n();
 
-const props = defineProps({
-  address: {
-    type: String,
-    required: true,
-    default: () => null,
-  },
-});
+const props = defineProps<{ address: string }>();
 
 const { data, load, total, pending, pageSize } = useTransfers(
   computed(() => {
@@ -232,7 +226,7 @@ const toDate = new Date();
 
 watch(
   [activePage, () => props.address],
-  ([page]) => {
+  ([page, _]) => {
     load(page, toDate);
   },
   { immediate: true },

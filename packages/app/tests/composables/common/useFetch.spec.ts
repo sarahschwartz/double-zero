@@ -4,7 +4,7 @@ import {
   describe,
   expect,
   it,
-  type SpyInstance,
+  type MockInstance,
   vi,
 } from 'vitest';
 
@@ -20,7 +20,7 @@ vi.mock('ohmyfetch', () => {
 
 describe('useFetch:', () => {
   afterEach(() => {
-    ($fetch as unknown as SpyInstance).mockReset();
+    ($fetch as unknown as MockInstance).mockReset();
   });
   it('creates useFetch composable', () => {
     const result = composable(
@@ -52,14 +52,14 @@ describe('useFetch:', () => {
     });
 
     it('sets failed to true when request failed', async () => {
-      ($fetch as unknown as SpyInstance).mockRejectedValue(new Error('500'));
+      ($fetch as unknown as MockInstance).mockRejectedValue(new Error('500'));
 
       await fc.fetch();
       expect(fc.failed.value).toEqual(true);
     });
 
     it('sets corresponding item when request is completed', async () => {
-      ($fetch as unknown as SpyInstance).mockResolvedValue('2');
+      ($fetch as unknown as MockInstance).mockResolvedValue('2');
       await fc.fetch();
 
       expect(fc.item.value).toEqual('2');

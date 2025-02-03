@@ -7,7 +7,7 @@ import {
   describe,
   expect,
   it,
-  type SpyInstance,
+  type MockInstance,
   vi,
 } from 'vitest';
 
@@ -74,7 +74,7 @@ describe('AddressView: ', () => {
     },
   });
 
-  let mockContext: SpyInstance;
+  let mockContext: MockInstance;
 
   beforeEach(() => {
     mockContext = useContextMock();

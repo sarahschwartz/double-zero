@@ -1,4 +1,4 @@
-import { describe, expect, it, type SpyInstance, vi } from 'vitest';
+import { describe, expect, it, type MockInstance, vi } from 'vitest';
 
 import { $fetch } from 'ohmyfetch';
 
@@ -52,7 +52,7 @@ describe('useEventLog:', () => {
     expect(isDecodePending.value).toEqual(false);
   });
   it('returns raw logs in case account request failed', async () => {
-    const mock = ($fetch as unknown as SpyInstance).mockRejectedValue(
+    const mock = ($fetch as unknown as MockInstance).mockRejectedValue(
       new Error('An error occurred'),
     );
     const { collection, isDecodePending, isDecodeFailed, decodeEventLog } =

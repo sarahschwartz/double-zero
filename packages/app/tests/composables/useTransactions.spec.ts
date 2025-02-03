@@ -6,7 +6,7 @@ import {
   describe,
   expect,
   it,
-  type SpyInstance,
+  type MockInstance,
   vi,
 } from 'vitest';
 
@@ -67,15 +67,15 @@ vi.mock('ohmyfetch', () => {
 });
 
 describe('useTransactions:', () => {
-  let mockContext: SpyInstance;
+  let mockContext: MockInstance;
   let searchParams: ComputedRef<TransactionSearchParams>;
-  let fetchMock: SpyInstance;
+  let fetchMock: MockInstance;
 
   /* eslint-disable  @typescript-eslint/no-explicit-any */
   beforeEach(() => {
     mockContext = useContextMock();
     searchParams = computed(() => ({}));
-    fetchMock = $fetch as any as SpyInstance;
+    fetchMock = $fetch as any as MockInstance;
   });
 
   afterEach(() => {

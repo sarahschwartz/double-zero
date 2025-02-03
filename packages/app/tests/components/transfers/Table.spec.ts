@@ -7,7 +7,7 @@ import {
   describe,
   expect,
   it,
-  type SpyInstance,
+  type MockInstance,
   vi,
 } from 'vitest';
 
@@ -24,9 +24,9 @@ import {
 import Table from '@/components/transfers/Table.vue';
 
 import enUS from '@/locales/en.json';
-import elements from 'tests/e2e/testId.json';
 
 import $testId from '@/plugins/testId';
+import elements from '@/utils/testId.js';
 
 vi.mock('vue-router', () => ({
   useRoute: vi.fn(),
@@ -80,8 +80,8 @@ describe('Transfers:', () => {
     },
   });
 
-  let mockContext: SpyInstance;
-  let mockTransfers: SpyInstance;
+  let mockContext: MockInstance;
+  let mockTransfers: MockInstance;
 
   beforeEach(() => {
     mockContext = useContextMock();

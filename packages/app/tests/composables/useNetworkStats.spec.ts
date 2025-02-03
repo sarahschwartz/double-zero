@@ -9,7 +9,7 @@ import useNetworkStats, {
 } from '@/composables/useNetworkStats';
 
 import type { UseFetch } from '@/composables/common/useFetch';
-import type { SpyInstance } from 'vitest';
+import type { MockInstance } from 'vitest';
 
 vi.mock('ohmyfetch', () => {
   return {
@@ -20,7 +20,7 @@ vi.mock('ohmyfetch', () => {
 describe('UseNetworkStats:', () => {
   /* eslint-disable  @typescript-eslint/no-explicit-any */
 
-  let mockContext: SpyInstance;
+  let mockContext: MockInstance;
   let composable: UseFetch<NetworkStats>;
   beforeEach(() => {
     mockContext = useContextMock();

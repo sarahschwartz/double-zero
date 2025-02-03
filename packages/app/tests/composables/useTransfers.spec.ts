@@ -6,7 +6,7 @@ import {
   describe,
   expect,
   it,
-  type SpyInstance,
+  type MockInstance,
   vi,
 } from 'vitest';
 
@@ -60,7 +60,7 @@ vi.mock('ohmyfetch', () => {
 //
 
 describe('useTransfers:', () => {
-  let mockContext: SpyInstance;
+  let mockContext: MockInstance;
   let address: ComputedRef<string>;
 
   beforeEach(() => {
