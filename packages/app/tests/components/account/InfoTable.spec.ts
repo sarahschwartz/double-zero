@@ -42,10 +42,10 @@ describe('InfoTable:', () => {
     );
     const committed = rowArray[1].findAll('td');
     expect(committed[0].text()).toBe('Committed nonce');
-    expect(committed[1].text()).toBe('1');
+    expect(committed[1].text()).toBe('Restricted');
     const verified = rowArray[2].findAll('td');
     expect(verified[0].text()).toBe('Verified nonce');
-    expect(verified[1].text()).toBe('1');
+    expect(verified[1].text()).toBe('Restricted');
   });
   it('renders loading state', () => {
     const wrapper = mount(InfoTable, {
