@@ -6,10 +6,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { mount, RouterLinkStub } from '@vue/test-utils';
 
 // eslint-disable-next-line import/order
-import { useContextMock, useTransactionsMock } from './../mocks';
+import { useContextMock, useTransactionsMock } from '../mocks';
 import enUS from '@/locales/en.json';
 
-import type { SpyInstance } from 'vitest';
+import type { MockInstance } from 'vitest';
 
 const routeQueryMock = vi.fn(() => ({}));
 vi.mock('vue-router', () => ({
@@ -46,8 +46,8 @@ describe('TransactionsView:', () => {
     },
   });
 
-  let mockContext: SpyInstance;
-  let mockTransactions: SpyInstance;
+  let mockContext: MockInstance;
+  let mockTransactions: MockInstance;
   beforeEach(() => {
     routeQueryMock.mockRestore();
     mockContext = useContextMock();
