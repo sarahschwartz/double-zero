@@ -286,6 +286,8 @@ import { computed, type PropType, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
 
+import { LockClosedIcon } from '@heroicons/vue/outline';
+
 import AddressLink from '@/components/AddressLink.vue';
 import Badge from '@/components/common/Badge.vue';
 import CopyButton from '@/components/common/CopyButton.vue';
@@ -315,7 +317,6 @@ import type { AbiFragment } from '@/composables/useAddress';
 import type { NetworkOrigin } from '@/types';
 
 import { utcStringFromISOString } from '@/utils/helpers';
-import { LockClosedIcon } from '@heroicons/vue/outline';
 
 const { currentNetwork, user } = useContext();
 

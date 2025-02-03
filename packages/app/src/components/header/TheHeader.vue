@@ -207,7 +207,7 @@ const socials = [
   { url: 'https://twitter.com/zksync', component: TwitterIcon },
 ];
 
-const hasContent = computed(() => {
+const _hasContent = computed(() => {
   if (route.name !== 'not-found' && !currentNetwork.value.maintenance) {
     if (route.params.hash) {
       return isTransactionHash(route.params.hash as string);
