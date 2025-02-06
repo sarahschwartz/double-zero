@@ -33,7 +33,19 @@
         </TableBodyColumn>
       </tr>
     </template>
-    <template #table-row="{ item }: { item: { number: number, status: string, l1TxCount: number, l2TxCount: number, timestamp: number } }">
+    <template
+      #table-row="{
+        item,
+      }: {
+        item: {
+          number: number;
+          status: string;
+          l1TxCount: number;
+          l2TxCount: number;
+          timestamp: number;
+        };
+      }"
+    >
       <TableBodyColumn :data-heading="t('blocks.table.block')">
         <div class="blocks-number-container">
           <div class="blocks-number-icon-container">

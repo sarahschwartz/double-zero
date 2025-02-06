@@ -23,12 +23,12 @@ import {
 import Table from '@/components/transactions/Table.vue';
 
 import enUS from '@/locales/en.json';
-import elements from '@/utils/testId.js';
 
 import type { AbiFragment } from '@/composables/useAddress';
 import type { TransactionListItem } from '@/composables/useTransactions';
 
 import $testId from '@/plugins/testId';
+import elements from '@/utils/testId.js';
 
 vi.mock('vue-router', () => ({
   useRoute: vi.fn(() => ({ query: {} })),

@@ -8,7 +8,6 @@ import { computed } from '@vue/reactivity';
 
 import * as useTrace from '@/composables/useTrace';
 
-
 import enUS from '@/locales/en.json';
 
 import $testId from '@/plugins/testId';

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { BasePage } from './base.page';
 
-import elements from '@/utils/testId.js';
-
 import type { ICustomWorld } from '../support/custom-world';
+
+import elements from '@/utils/testId.js';
 
 let element: any;
 
