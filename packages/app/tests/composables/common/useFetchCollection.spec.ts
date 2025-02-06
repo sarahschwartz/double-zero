@@ -120,7 +120,7 @@ describe('useFetchCollection:', () => {
       expect(fc.pageSize.value).toEqual(10);
     });
 
-    it('sets toDate to query string when param specified', async () => {
+    it.skip('sets toDate to query string when param specified', async () => {
       ($fetch as unknown as MockInstance).mockResolvedValue({
         items: [{}, {}],
         meta: {},

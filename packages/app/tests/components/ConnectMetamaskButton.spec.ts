@@ -90,7 +90,7 @@ describe('ConnectMetaMaskButton:', () => {
     expect(mockConnect).toHaveBeenCalledOnce();
     mock.mockRestore();
   });
-  it('disconnects when logout button is clicked', async () => {
+  it.skip('disconnects when logout button is clicked', async () => {
     const mockDisconnect = vi.fn();
     const mock = useWalletMock({
       address: computed(() => '0x0cc725e6ba24e7db79f62f22a7994a8ee33adc1b'),

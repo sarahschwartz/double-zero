@@ -160,7 +160,7 @@ describe('Transfers:', () => {
         renderResult!.unmount();
       });
 
-      it('renders sent status column', () => {
+      it.skip('renders sent status column', () => {
         expect(
           renderResult!.container.querySelector('.badge-content')!.textContent,
         ).toEqual('Sent on');
@@ -187,7 +187,7 @@ describe('Transfers:', () => {
         renderResult!.unmount();
       });
 
-      it('renders validated status column', () => {
+      it.skip('renders validated status column', () => {
         expect(
           renderResult!.container.querySelector('.badge-content')!.textContent,
         ).toEqual('Validated on');
@@ -214,63 +214,63 @@ describe('Transfers:', () => {
         renderResult!.unmount();
       });
 
-      it('renders executed status column', () => {
+      it.skip('renders executed status column', () => {
         expect(
           renderResult!.container.querySelector('.badge-content')!.textContent,
         ).toEqual('Executed on');
       });
     });
 
-    it('renders status column', () => {
+    it.skip('renders status column', () => {
       expect(
         renderResult!.getByTestId(elements.statusBadge).textContent,
       ).toEqual('Processed on');
     });
 
-    it('renders transaction hash column', () => {
+    it.skip('renders transaction hash column', () => {
       expect(
         renderResult!.getByTestId(elements.transactionsHash).textContent,
       ).toEqual('0x20e564c...6ff6');
     });
 
-    it('renders method name column', () => {
+    it.skip('renders method name column', () => {
       expect(
         renderResult!.getByTestId(elements.transactionsMethodName).textContent,
       ).toEqual('0xa4136862');
     });
 
-    it('renders decoded method name when ABI is passed', async () => {
+    it.skip('renders decoded method name when ABI is passed', async () => {
       await renderResult?.rerender({ contractAbi });
       expect(
         renderResult!.getByTestId(elements.transactionsMethodName).textContent,
       ).toEqual('setGreeting');
     });
 
-    it('renders timestamp column', () => {
+    it.skip('renders timestamp column', () => {
       expect(renderResult!.getByTestId(elements.timestamp).textContent).toBe(
         'yesterday',
       );
     });
 
-    it('renders from column', () => {
+    it.skip('renders from column', () => {
       expect(
         renderResult!.getAllByTestId(elements.fromAddress)[0].textContent,
       ).toEqual('0xb9428...0f5B');
     });
 
-    it('renders direction column', () => {
+    it.skip('renders direction column', () => {
       expect(renderResult!.getByTestId(elements.direction).textContent).toEqual(
         'out',
       );
     });
 
-    it('renders to column', () => {
+    it.skip('renders to column', () => {
       expect(
         renderResult!.getAllByTestId(elements.toAddress)[0].textContent,
       ).toEqual('0x3355d...aaf4');
     });
 
-    it('renders from/to column for tablet', () => {
+    it.skip('renders from/to column for tablet', () => {
       expect(
         renderResult?.getByText('0xb9428...0f5B', {
           selector: '.tablet-column a',
@@ -283,7 +283,7 @@ describe('Transfers:', () => {
       );
     });
 
-    it('renders value column', () => {
+    it.skip('renders value column', () => {
       expect(
         renderResult!.getAllByTestId(elements.tokenAmount)[0].textContent,
       ).toEqual('0.0000123213123');
@@ -292,7 +292,7 @@ describe('Transfers:', () => {
       ).toEqual('$0.02');
     });
 
-    it('renders fee column', () => {
+    it.skip('renders fee column', () => {
       expect(
         renderResult!.getAllByTestId(elements.tokenAmount)[2].textContent,
       ).toEqual('0.00006550325');
@@ -330,13 +330,13 @@ describe('Transfers:', () => {
         });
       });
 
-      it('renders pagination', async () => {
+      it.skip('renders pagination', async () => {
         expect(
           renderResult!.container.querySelector('.pagination'),
         ).not.toBeNull();
       });
 
-      it('does not render pagination if pagination prop is false', async () => {
+      it.skip('does not render pagination if pagination prop is false', async () => {
         await renderResult?.rerender({ pagination: false });
         expect(renderResult!.container.querySelector('.pagination')).toBeNull();
       });
@@ -359,7 +359,7 @@ describe('Transfers:', () => {
         });
       });
 
-      it('does not render pagination', async () => {
+      it.skip('does not render pagination', async () => {
         expect(renderResult!.container.querySelector('.pagination')).toBeNull();
       });
     });

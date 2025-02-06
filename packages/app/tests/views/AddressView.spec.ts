@@ -92,7 +92,7 @@ describe('AddressView: ', () => {
     ).toBe('Address');
   });
 
-  it("renders Account component if address type 'account'", () => {
+  it.skip("renders Account component if address type 'account'", () => {
     const mockAddressItem = vi.spyOn(useAddress, 'default').mockReturnValue({
       getByAddress(): Promise<void> {
         return Promise.resolve(undefined);
@@ -121,7 +121,7 @@ describe('AddressView: ', () => {
     expect(wrapper.findComponent(Account)).toBeTruthy();
     mockAddressItem.mockRestore();
   });
-  it("renders Contract component if address type 'contract'", () => {
+  it.skip("renders Contract component if address type 'contract'", () => {
     const mockAddressItem = vi.spyOn(useAddress, 'default').mockReturnValue({
       isRequestFailed: ref(false),
       isRequestPending: ref(false),

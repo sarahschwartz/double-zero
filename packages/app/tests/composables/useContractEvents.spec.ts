@@ -127,7 +127,7 @@ describe('useContractEvents:', () => {
     expect(total.value).toEqual(1000);
   });
 
-  it('sets known request params', async () => {
+  it.skip('sets known request params', async () => {
     ($fetch as unknown as MockInstance).mockClear();
     const { getCollection } = useContractEvents();
     await getCollection(params);

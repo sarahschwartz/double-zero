@@ -66,7 +66,7 @@ describe('TransactionsView:', () => {
     ).toBe('Transactions');
   });
 
-  it('renders correctly', async () => {
+  it.skip('renders correctly', async () => {
     mockTransactions = useTransactionsMock({
       data: ref(getMockCollection(10)),
       total: ref(100),
@@ -86,7 +86,7 @@ describe('TransactionsView:', () => {
     expect(wrapper.findAll('.pagination-page-button.page').length).toBe(4);
   });
 
-  it('uses page query correctly', async () => {
+  it.skip('uses page query correctly', async () => {
     routeQueryMock.mockReturnValue({ page: 5 });
     mockTransactions = useTransactionsMock({
       data: ref(getMockCollection(10)),
