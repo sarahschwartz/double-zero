@@ -55,6 +55,18 @@ jobs:
 #          yarn run typecheck
 
       - name: Test
+        env:
+          VITE_API_URL: "http://api.example"
+          VITE_BASE_TOKEN_ADDRESS: "0x"
+          VITE_BRIDGE_URL: "http://bridge.example"
+          VITE_HOSTNAMES: "http://host.example"
+          VITE_ICON: "http://host.example/icon.svg"
+          VITE_L2_CHAIN_ID: "1111"
+          VITE_L2_NETWORK_NAME: "example"
+          VITE_MAINTENANCE: "true"
+          VITE_NAME: "test"
+          VITE_PUBLISHED: "true"
+          VITE_RPC_URL: "http://rpc.example"
         run: |
           yarn run test:ci
 
@@ -72,5 +84,17 @@ jobs:
           check_name: Unit Test Results
 
       - name: Build
+        env:
+          VITE_API_URL: "http://api.example"
+          VITE_BASE_TOKEN_ADDRESS: "0x"
+          VITE_BRIDGE_URL: "http://bridge.example"
+          VITE_HOSTNAMES: "http://host.example"
+          VITE_ICON: "http://host.example/icon.svg"
+          VITE_L2_CHAIN_ID: "1111"
+          VITE_L2_NETWORK_NAME: "example"
+          VITE_MAINTENANCE: "true"
+          VITE_NAME: "test"
+          VITE_PUBLISHED: "true"
+          VITE_RPC_URL: "http://rpc.example"
         run: |
           yarn run build
