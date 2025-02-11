@@ -4,7 +4,7 @@ import {
   describe,
   expect,
   it,
-  type SpyInstance,
+  type MockInstance,
   vi,
 } from 'vitest';
 
@@ -43,7 +43,7 @@ vi.mock('ohmyfetch', () => {
 //
 
 describe('UseBlocks:', () => {
-  let mockContext: SpyInstance;
+  let mockContext: MockInstance;
 
   beforeEach(() => {
     mockContext = useContextMock();

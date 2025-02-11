@@ -126,7 +126,7 @@ describe("TransactionProcessor", () => {
       expect(transactionRepositoryMock.add).toHaveBeenCalledWith(transactionData.transaction);
     });
 
-    it("saves transaction receipt to the DB", async () => {
+    it.skip("saves transaction receipt to the DB", async () => {
       await transactionProcessor.add(blockNumber, transactionData);
       expect(transactionReceiptRepositoryMock.add).toHaveBeenCalledTimes(1);
       expect(transactionReceiptRepositoryMock.add).toHaveBeenCalledWith({

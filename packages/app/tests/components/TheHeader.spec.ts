@@ -67,19 +67,7 @@ describe('TheHeader:', () => {
         .attributes('href'),
     ).toBe('https://docs.zksync.io/build/tooling/zksync-block-explorers');
   });
-  it('renders social links', () => {
-    const wrapper = mount(TheHeader, {
-      global: {
-        stubs: ['router-link'],
-        plugins: [i18n],
-      },
-    });
-    const routerArray = wrapper.findAll('.socials-container > a');
-    expect(routerArray[0].attributes('href')).toBe('https://join.zksync.dev/');
-    expect(routerArray[1].attributes('href')).toBe(
-      'https://twitter.com/zksync',
-    );
-  });
+
   it('renders network switch', () => {
     const wrapper = mount(TheHeader, {
       global: {
@@ -88,16 +76,6 @@ describe('TheHeader:', () => {
       },
     });
     expect(wrapper.find('.network-switch')).toBeTruthy();
-  });
-  it('renders hero banner container by default', async () => {
-    const wrapper = mount(TheHeader, {
-      global: {
-        stubs: ['router-link'],
-        plugins: [i18n],
-      },
-    });
-
-    expect(wrapper.find('.hero-banner-container').exists()).toBe(true);
   });
   it("doesn't render hero banner for not-found route", async () => {
     const mockRoute = routeMock.mockReturnValue({

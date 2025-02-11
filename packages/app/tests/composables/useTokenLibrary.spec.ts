@@ -6,7 +6,7 @@ import {
   describe,
   expect,
   it,
-  type SpyInstance,
+  type MockInstance,
   vi,
 } from 'vitest';
 
@@ -26,7 +26,7 @@ vi.mock('ohmyfetch', async () => {
 });
 
 describe('useTokenLibrary:', () => {
-  const fetchSpy = $fetch as unknown as SpyInstance;
+  const fetchSpy = $fetch as unknown as MockInstance;
   beforeEach(() => {
     fetchSpy
       .mockResolvedValueOnce({

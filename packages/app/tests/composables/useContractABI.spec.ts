@@ -1,6 +1,6 @@
 import { computed, ref } from 'vue';
 
-import { describe, expect, it, type SpyInstance, vi } from 'vitest';
+import { describe, expect, it, type MockInstance, vi } from 'vitest';
 
 import { $fetch } from 'ohmyfetch';
 
@@ -62,7 +62,7 @@ describe('useContractABI:', () => {
     expect(isRequestPending.value).toEqual(false);
   });
   it('sets isRequestFailed to true when request failed', async () => {
-    const mock = ($fetch as unknown as SpyInstance).mockRejectedValue(
+    const mock = ($fetch as unknown as MockInstance).mockRejectedValue(
       new Error('An error occurred'),
     );
     const { isRequestFailed, getCollection } = useContractABI();
@@ -72,7 +72,7 @@ describe('useContractABI:', () => {
     mock.mockRestore();
   });
   it("doesn't make request when there is no verification api url", async () => {
-    const mock = ($fetch as unknown as SpyInstance).mockClear();
+    const mock = ($fetch as unknown as MockInstance).mockClear();
 
     const { getCollection } = useContractABI({
       currentNetwork: computed(() => ({})),
@@ -83,7 +83,7 @@ describe('useContractABI:', () => {
     mock.mockRestore();
   });
   it('caches the results', async () => {
-    const mock = ($fetch as unknown as SpyInstance).mockClear();
+    const mock = ($fetch as unknown as MockInstance).mockClear();
     const { getCollection } = useContractABI();
     await getCollection(['0x1000000000000000000000000000000000000000']);
     await getCollection(['0x1000000000000000000000000000000000000000']);
@@ -91,7 +91,7 @@ describe('useContractABI:', () => {
     mock.mockRestore();
   });
   it('does not reuse cache if network changed', async () => {
-    const mock = ($fetch as unknown as SpyInstance).mockClear();
+    const mock = ($fetch as unknown as MockInstance).mockClear();
     const currentNetwork = ref(TESTNET_NETWORK);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { getCollection } = useContractABI({ currentNetwork } as any);

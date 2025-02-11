@@ -1,4 +1,4 @@
-import { describe, expect, it, type SpyInstance, vi } from 'vitest';
+import { describe, expect, it, type MockInstance, vi } from 'vitest';
 
 import { $fetch, FetchError } from 'ohmyfetch';
 
@@ -91,7 +91,7 @@ describe('useTransactionData:', () => {
     expect(isDecodePending.value).toEqual(false);
   });
   it('returns raw data in case account request failed', async () => {
-    const mock = ($fetch as unknown as SpyInstance).mockRejectedValue(
+    const mock = ($fetch as unknown as MockInstance).mockRejectedValue(
       new Error('An error occurred'),
     );
     const { data, isDecodePending, decodingError, decodeTransactionData } =
@@ -107,7 +107,7 @@ describe('useTransactionData:', () => {
     mock.mockRestore();
   });
   it('returns raw data in case contract is not verified', async () => {
-    const mock = ($fetch as unknown as SpyInstance).mockRejectedValue(
+    const mock = ($fetch as unknown as MockInstance).mockRejectedValue(
       new FetchError('404'),
     );
     const { data, isDecodePending, decodingError, decodeTransactionData } =
@@ -148,7 +148,7 @@ describe('useTransactionData:', () => {
     });
   });
   it('sets error message when decoding failed for a proxy contract', async () => {
-    ($fetch as unknown as SpyInstance).mockResolvedValueOnce(
+    ($fetch as unknown as MockInstance).mockResolvedValueOnce(
       ERC20ProxyVerificationInfo,
     );
     const getProxyInfoMock =
@@ -169,10 +169,10 @@ describe('useTransactionData:', () => {
     getProxyInfoMock.mockRestore();
   });
   it('decodes data successfully for a proxy contract', async () => {
-    ($fetch as unknown as SpyInstance).mockResolvedValueOnce(
+    ($fetch as unknown as MockInstance).mockResolvedValueOnce(
       ERC20ProxyVerificationInfo,
     );
-    const mock = ($fetch as unknown as SpyInstance).mockResolvedValueOnce(
+    const mock = ($fetch as unknown as MockInstance).mockResolvedValueOnce(
       ERC20VerificationInfo,
     );
     const { data, isDecodePending, decodingError, decodeTransactionData } =

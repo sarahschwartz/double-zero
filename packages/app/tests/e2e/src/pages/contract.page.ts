@@ -2,14 +2,9 @@
 import { BasePage } from './base.page';
 import { MainPage } from './main.page';
 
-import {
-  byteCodeDropDown,
-  contractVerificationButton,
-  optimizationRadioButtons,
-  transactionsTable,
-} from '../../testId.json';
-
 import type { ICustomWorld } from '../support/custom-world';
+
+import elements from '@/utils/testId.js';
 
 let element: any;
 let result: any;
@@ -27,19 +22,19 @@ export class ContractPage extends BasePage {
   }
 
   get contractVerificationBtn() {
-    return contractVerificationButton;
+    return elements.contractVerificationButton;
   }
 
   get radioButtons() {
-    return optimizationRadioButtons;
+    return elements.optimizationRadioButtons;
   }
 
   get byteCode() {
-    return byteCodeDropDown;
+    return elements.byteCodeDropDown;
   }
 
   get transactionsTable() {
-    return transactionsTable;
+    return elements.transactionsTable;
   }
 
   get title() {

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { BasePage } from './base.page';
 
-import { pageTitle } from '../../testId.json';
-
 import type { ICustomWorld } from '../support/custom-world';
+
+import elements from '@/utils/testId.js';
 
 let element: any;
 
@@ -12,7 +12,7 @@ export class TokensPage extends BasePage {
     super(world);
   }
   get title() {
-    return `${this.byTestId}${pageTitle}`;
+    return `${this.byTestId}${elements.pageTitle}`;
   }
 
   get copyBtn() {

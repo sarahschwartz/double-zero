@@ -8,11 +8,11 @@ import { computed } from '@vue/reactivity';
 
 import * as useTrace from '@/composables/useTrace';
 
-import testId from './../e2e/testId.json';
 import enUS from '@/locales/en.json';
 
 import $testId from '@/plugins/testId';
 import routes from '@/router/routes';
+import testId from '@/utils/testId.js';
 import DebuggerView from '@/views/DebuggerView.vue';
 
 describe('DebuggerView:', () => {

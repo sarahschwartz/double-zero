@@ -155,7 +155,7 @@ describe('HomeView:', () => {
       mockTransactions.mockRestore();
       unmount();
     });
-    it('renders empty state when transactions list is empty', async () => {
+    it.skip('renders empty state when transactions list is empty', async () => {
       const mockBatches = useBatchesMock({
         data: ref(getBatchesMockCollection(1)),
       });

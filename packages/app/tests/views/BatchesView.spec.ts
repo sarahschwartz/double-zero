@@ -7,7 +7,7 @@ import {
   describe,
   expect,
   it,
-  type SpyInstance,
+  type MockInstance,
   vi,
 } from 'vitest';
 
@@ -49,7 +49,7 @@ describe('BatchesView:', () => {
     },
   });
 
-  let mockBatchCollection: SpyInstance;
+  let mockBatchCollection: MockInstance;
   beforeEach(() => {
     routeQueryMock.mockRestore();
   });

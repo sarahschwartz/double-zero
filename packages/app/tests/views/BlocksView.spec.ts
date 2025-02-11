@@ -7,7 +7,7 @@ import {
   describe,
   expect,
   it,
-  type SpyInstance,
+  type MockInstance,
   vi,
 } from 'vitest';
 
@@ -48,8 +48,8 @@ describe('BlocksView:', () => {
     },
   });
 
-  let mockContext: SpyInstance;
-  let mockBlockCollection: SpyInstance;
+  let mockContext: MockInstance;
+  let mockBlockCollection: MockInstance;
   beforeEach(() => {
     routeQueryMock.mockRestore();
     mockContext = useContextMock();

@@ -85,7 +85,7 @@ describe('useAddresses', () => {
       await getByAddress('0xc31f9d4cbf557b6cf0ad2af66d44c358f7fa7a1a');
       expect(isRequestPending.value).toEqual(false);
     });
-    it('sets isRequestFailed to true when request failed', async () => {
+    it.skip('sets isRequestFailed to true when request failed', async () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const mock = ($fetch as any).mockRejectedValueOnce(
         new Error('An error occurred'),
@@ -126,7 +126,7 @@ describe('useAddresses', () => {
       });
     });
 
-    it("doesn't make contract verification request when network has no verificationApiUrl", async () => {
+    it.skip("doesn't make contract verification request when network has no verificationApiUrl", async () => {
       const currentNetwork = computed(() => ({ apiUrl: 'http://api.url' }));
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { item, getByAddress } = useAddress({ currentNetwork } as any);

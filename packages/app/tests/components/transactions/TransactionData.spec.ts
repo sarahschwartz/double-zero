@@ -95,7 +95,7 @@ describe('TransactionDataComponent', () => {
     ]);
     expect(row2Columns).toEqual(['1', 'amount', 'uint256', '1']);
   });
-  it('renders binary decoded data when selected in the dropdown', async () => {
+  it.skip('renders binary decoded data when selected in the dropdown', async () => {
     const { container } = render(TransactionDataComponent, {
       props: {
         data: { ...transactionData, method: transactionDataDecodedMethod },

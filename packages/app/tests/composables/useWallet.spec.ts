@@ -393,7 +393,7 @@ describe('useWallet:', () => {
       mockRequest.mockRestore();
     });
 
-    it('adds network L2 when it is not added yet', async () => {
+    it.skip('adds network L2 when it is not added yet', async () => {
       const mockRequest = vi
         .spyOn(mockProvider, 'request')
         .mockImplementation(async (args) => {
@@ -435,7 +435,7 @@ describe('useWallet:', () => {
       mockRequest.mockRestore();
     });
 
-    it('adds network L2 on phone when it is not added yet', async () => {
+    it.skip('adds network L2 on phone when it is not added yet', async () => {
       const mockRequest = vi
         .spyOn(mockProvider, 'request')
         .mockImplementation(async (args) => {

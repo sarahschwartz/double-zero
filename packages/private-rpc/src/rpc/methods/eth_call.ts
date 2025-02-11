@@ -3,7 +3,7 @@ import { addressSchema } from '@/schemas/address';
 import { hexSchema } from '@/schemas/hex';
 import { MethodHandler } from '@/rpc/rpc-service';
 import { isAddressEqual } from 'viem';
-import { response, unauthorized } from '@/rpc/json-rpc';
+import { unauthorized } from '@/rpc/json-rpc';
 import { delegateCall } from '@/rpc/delegate-call';
 import { sendToTargetRpc } from '@/rpc/methods/utils';
 

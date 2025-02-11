@@ -25,7 +25,9 @@ describe('TransactionEmptyState', () => {
         batchExists: true,
       },
     });
-    getByText("This Batch doesn't have any transactions");
+    getByText(
+      "This Batch doesn't have any transactions related to the connected account",
+    );
   });
   it('renders component properly for nonexisting batch', async () => {
     const { getByText } = render(TransactionEmptyState, {

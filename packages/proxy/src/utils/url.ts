@@ -7,5 +7,7 @@ export function buildUrl(base: string, query: Record<string, Stringy>) {
   }
   const serializedParams = params.toString();
 
-  return `${base}${serializedParams.length === 0 ? '' : `?${serializedParams}`}`;
+  return `${base}${
+    serializedParams.length === 0 ? '' : `?${serializedParams}`
+  }`;
 }
