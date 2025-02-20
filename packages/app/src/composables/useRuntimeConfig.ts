@@ -3,18 +3,18 @@ import type { NetworkConfig, RuntimeConfig } from '@/configs';
 import { env } from '@/configs/env';
 import { checksumAddress } from '@/utils/formatters';
 export const DEFAULT_NETWORK: NetworkConfig = {
-  apiUrl: 'https://block-explorer-api.sepolia.zksync.dev',
-  verificationApiUrl: 'https://explorer.sepolia.era.zksync.dev',
-  bridgeUrl: 'https://portal.zksync.io/bridge/?network=sepolia',
-  hostnames: ['https://sepolia.explorer.zksync.io'],
+  apiUrl: 'http://localhost:4040',
+  verificationApiUrl: 'http://localhost:3070',
+  bridgeUrl: '',
+  hostnames: ['localhost'],
   icon: '/images/icons/zksync-arrows.svg',
-  l1ExplorerUrl: 'https://sepolia.etherscan.io',
-  l2ChainId: 300,
-  l2NetworkName: 'ZKsync Era Sepolia Testnet',
+  l1ExplorerUrl: '',
+  l2ChainId: 54678,
+  l2NetworkName: 'Local Game Chain',
   maintenance: false,
-  name: 'sepolia',
+  name: 'localhost',
   published: true,
-  rpcUrl: 'https://sepolia.era.zksync.dev',
+  rpcUrl: 'http://localhost:4041',
   baseTokenAddress: checksumAddress(
     '0x000000000000000000000000000000000000800A',
   ),
