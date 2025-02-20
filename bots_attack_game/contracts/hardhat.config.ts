@@ -34,8 +34,10 @@ const config: HardhatUserConfig = {
       zksync: true,
       verifyURL:
         "http://localhost:3070/contract_verification",
-      accounts: process.env.WALLET_PRIVATE_KEY1 && process.env.WALLET_PRIVATE_KEY2
-        ? [process.env.WALLET_PRIVATE_KEY1, process.env.WALLET_PRIVATE_KEY2]
+      accounts: process.env.WALLET_PRIVATE_KEY && process.env.WALLET_PRIVATE_KEY1 && process.env.WALLET_PRIVATE_KEY2
+        ? [process.env.WALLET_PRIVATE_KEY, process.env.WALLET_PRIVATE_KEY1, process.env.WALLET_PRIVATE_KEY2]
+        : process.env.WALLET_PRIVATE_KEY
+        ? [process.env.WALLET_PRIVATE_KEY]
         : [],
     },
     anvilZKsync: {

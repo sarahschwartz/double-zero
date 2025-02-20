@@ -46,14 +46,14 @@ Ensure to have to following ports free:
 - 8545
 
 Now we need to create the ecosystem.
-
-Also, it’s good to avoid using the default chain id. For this example we are going to use `54678` .
+Move into a folder where you want to create the ecocsystem folder.
+Then run the `ecosystem create` command below.
 
 ```sh
 zkstack ecosystem create
 ```
 
-Use the answers below:
+Use the answers below to answer the prompts:
 
 ```txt
 ◇  What do you want to name the ecosystem?
@@ -100,9 +100,11 @@ zkstack ecosystem init --dev
 zkstack server run
 ```
 
-This is going to run all the local chain components and expose an rpc in the port 3050.
+Select `No DA` when prompted about the DA layer.
 
-> Note: this rpc is open and permissionless!
+This is going to run all the local chain components and expose an open RPC at the port `3050`.
+
+> Note: this RPC is open and permissionless!
 
 ### Start the contract verifier
 
@@ -110,7 +112,7 @@ The contract verifier is used to check contract source code against deployed byt
 explorer to display the source code and ABIs of contracts.
 
 You are going to be prompted about the versions of compilers that you want to support. Please choose solc at least
-0.8.24 and zksolc at least 1.56. This is going to be used to verify contracts of our dapp.
+0.8.24 and the latest versions of all other options. This is going to be used to verify contracts of our dapp.
 
 In a new terminal run the following commands:
 
@@ -188,7 +190,7 @@ This will be used in the next steps.
 Finally, verify the contract by running the command below with your deployed contract address:
 
 ```sh
-npm hardhat verify --network dockerizedNode <0xYOUR_CONTRACT_ADDRESS>
+npx hardhat verify --network dockerizedNode <0xYOUR_CONTRACT_ADDRESS>
 ```
 
 ### Configure permissions
@@ -264,7 +266,7 @@ Run the command below from the root folder to start the services:
 
 ## Running the Game Frontend
 
-Update the contract address in the `src/utils/constants.ts` file in the game frontend:
+Update the contract address in the `bots_attack_game/frontend/src/utils/constants.ts` file in the game frontend:
 
 ```ts [bots_attack_game/frontend/src/utils/constants.ts]
 export const CONTRACT_ADDRESS = "<0xYOUR_CONTRACT_ADDRESS>";
