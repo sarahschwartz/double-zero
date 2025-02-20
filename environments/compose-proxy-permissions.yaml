@@ -1,7 +1,3 @@
-groups:
-  - name: admins
-    members:
-      - "0x36615Cf349d7F6344891B1e7CA7C72883F5dc049"
 contracts:
   # Game contract
   - address: "0x4B5DF730c2e6b28E17013A1485E5d9BC41Efe021"
