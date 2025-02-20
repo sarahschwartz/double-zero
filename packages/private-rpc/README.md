@@ -1,6 +1,6 @@
 # Private RPC
 
-This package it's a proxy between final users and the network rpc.
+This package is a proxy between final users and the network rpc.
 
 Users need to provide a unique token in order to interact with the network.
 Each token provides a scoped view of the network.

@@ -38,7 +38,7 @@ export function buildApp(
   });
 
   app.register(usersRoutes, { prefix: '/users' });
-  app.register(rpcRoutes, { prefix: '/rpc' });
+  app.register(rpcRoutes);
 
   return app;
 }

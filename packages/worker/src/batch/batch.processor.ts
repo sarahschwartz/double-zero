@@ -44,11 +44,11 @@ export class BatchProcessor {
       }
 
       const nextBatchNumber = this.lastProcessedBatchNumber + 1;
-      this.logger.log({
-        message: "Getting batch from the blockchain",
-        batchNumber: nextBatchNumber,
-        currentBatchState: this.state,
-      });
+      // this.logger.log({
+      //   message: "Getting batch from the blockchain",
+      //   batchNumber: nextBatchNumber,
+      //   currentBatchState: this.state,
+      // });
       const nextBatch = await this.blockchainService.getL1BatchDetails(nextBatchNumber);
       if (!nextBatch) {
         this.logger.debug({ message: "No batch found yet", batchNumber: nextBatchNumber });

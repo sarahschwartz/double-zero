@@ -56,7 +56,7 @@ export default () => {
   return {
     networks: computed((): NetworkConfig[] =>
       config.value && Array.isArray(config.value.networks)
-        ? config.value.networks.filter((e) => e.published === true)
+        ? config.value.networks // .filter((e) => e.published === true)
         : [],
     ),
   };

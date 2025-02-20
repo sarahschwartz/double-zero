@@ -40,5 +40,5 @@ yarn test
 ## Prod start
 
 ``` bash
-yarb start
+yarn start
 ```
