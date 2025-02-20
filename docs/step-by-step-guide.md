@@ -151,9 +151,16 @@ After this is done you are going to have funds ready to use in your local validi
 
 Now that we have some funds on our L2 chain, let's deploy the game contract.
 
-First, edit the `.env` file with the private key of the wallet you just funded on your L2 chain:
+First, clone this repository:
 
-```txt
+```sh
+git clone https://github.com/sarahschwartz/double-zero.git
+cd double-zero
+```
+
+Next, edit the `.env` file in the `bots_attack_game/contracts` folder with the private key of the wallet you just funded on your L2 chain:
+
+```txt [bots_attack_game/contracts/.env]
 WALLET_PRIVATE_KEY=0x7726827caac94a7f9e1b160f7ea819f172f7b6f9d2a97f992c38edeab82d4110
 ```
 
