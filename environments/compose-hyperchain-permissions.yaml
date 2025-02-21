@@ -1,3 +1,7 @@
+groups:
+  - name: admins
+    members:
+      - "0xeaAFbF6Fc352B0598e34f4F282939720D9cf0f59"
 contracts:
   # Game contract
   - address: "<game_contract_address>" # <-- EDIT HERE

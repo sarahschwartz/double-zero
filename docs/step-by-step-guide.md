@@ -10,12 +10,12 @@ It's a two player turn-based game.
 Each player places 5 "bots" on a 5x5 board, and have to guess the location of their opponent's bots.
 The player to eliminate all 5 of their opponent's bots wins.
 
-Let’s go step by step to run game.
+Let’s go step by step to run the game.
 
 ## Deploy your validium chain
 
-Our chain will be deployed using [zkstack](https://zkstack.io/). ZKstack enables you to create custom validium chains
-tailored to your needs. For this guide, we'll use the basic deployment, but you can consult their documentation for more
+Our chain will be deployed using [ZKstack](https://zkstack.io/). ZKstack enables you to create custom validium chains
+tailored to your needs. For this guide, we'll use the basic deployment, but you can consult the ZKstack documentation for more
 customized configurations.
 
 ### Install System Dependencies
@@ -122,7 +122,7 @@ zkstack contract-verifier init
 zkstack contract-verifier run
 ```
 
-Once this is done you are going to have the verifier running in the port `3070`.
+Once this is done you are going to have the verifier running on port `3070`.
 
 ### Get some funds
 
