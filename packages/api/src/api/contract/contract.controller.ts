@@ -50,7 +50,8 @@ export class ContractController {
     private readonly httpService: HttpService,
     configService: ConfigService
   ) {
-    this.contractVerificationApiUrl = configService.get<string>("contractVerificationApiUrl");
+    this.contractVerificationApiUrl =
+      configService.get<string>("contractVerificationApiUrl") || "http://localhost:3070";
     this.logger = new Logger(ContractController.name);
   }
 

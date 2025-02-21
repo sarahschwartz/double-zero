@@ -35,7 +35,8 @@ export async function loadEnvironmentConfig(
         hostnames: env.VITE_HOSTNAMES,
         baseTokenAddress: env.VITE_BASE_TOKEN_ADDRESS,
         bridgeUrl: env.VITE_BRIDGE_URL,
-        verificationApiUrl: env.VITE_VERIFICATION_API_URL,
+        verificationApiUrl:
+          env.VITE_VERIFICATION_API_URL || 'http://localhost:3070',
         l1ExplorerUrl: env.VITE_L1_EXPLORER_URL,
         zkTokenAddress: env.VITE_ZK_TOKEN_ADDRESS,
         tokensMinLiquidity: env.VITE_TOKENS_MIN_LIQUIDITY,
