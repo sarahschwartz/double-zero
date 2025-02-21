@@ -226,34 +226,11 @@ ipconfig
 
 We are going to use your ip to link the validium rpc and the contract verifier.
 
-Let’s go ahead end edit the file `double-zero/environments/compose-hyperchain.env`. You should make it look this:
+Let’s go ahead end edit the file `double-zero/environments/compose-hyperchain.env` to add your IP to the following URLs:
 
 ```sh
 TARGET_RPC="http://<your_ip>:3050"
 CONTRACT_VERIFICATION_API_URL="http://<your_ip>:3070"
-
-# Conf
-CORS_ORIGIN_PROXY="http://localhost:3010"
-CORS_ORIGIN_RPC="*"
-# Secret to encript block explorer cookie. In production this has to
-# be a secure value.
-SESSION_SECRET="0101010101010101010101010101010101010101010101010101010101010101"
-# Secret used to communicate between proxy and private rpc. This
-# has to be a secure value in productioon.
-CREATE_TOKEN_SECRET="sososecret"
-
-# App
-APP_API_URL=http://localhost:4040
-APP_BRIDGE_URL=http://localhost:3000/bridge
-APP_HOSTNAMES=localhost
-APP_ICON=/images/icons/zksync-arrows.svg
-APP_L2_CHAIN_ID=54678
-APP_L2_NETWORK_NAME=Local Game Chain
-APP_MAINTENANCE=false
-APP_NAME=local
-APP_PUBLISHED=true
-APP_RPC_URL=http://localhost:4041
-APP_BASE_TOKEN_ADDRESS=0x000000000000000000000000000000000000800A
 ```
 
 Now you can run all the double zero services.
@@ -263,6 +240,8 @@ Run the command below from the root folder to start the services:
 ```sh
 ./environments/launch-hyperchain-env.sh
 ```
+
+> If you are having trouble running the Double Zero services, you may need to run `docker system prune` to clear some space.
 
 ## Running the Game Frontend
 
