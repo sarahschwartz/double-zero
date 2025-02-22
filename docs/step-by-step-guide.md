@@ -243,6 +243,16 @@ Run the command below from the root folder to start the services:
 
 > If you are having trouble running the Double Zero services, you may need to run `docker system prune` to clear some space.
 
+### Connecting to the network
+
+Before playing the game, go to the login page of the block explorer and follow the steps to add the custom network RPC: [localhost:3010/login](http://localhost:3010/login)
+
+![Login Page](./img/login-block-explorer.png)
+
+This step will generate a unique token for your address to be able to access the network.
+Note that you will only be able to see the balance of the current connected address in your wallet.
+To see the balance of another address, you must go through the login process again with that address.
+
 ## Running the Game Frontend
 
 Update the contract address in the `bots_attack_game/frontend/src/utils/constants.ts` file in the game frontend:
@@ -261,9 +271,7 @@ npm run dev
 
 Now, you can go to [localhost:3000](http://localhost:3000) to see your dapp running.
 
-### Connecting to the network
-
-Before playing the game, go to the login page of the block explorer and follow the steps to add the custom network RPC: [localhost:3010/login](http://localhost:3010/login)
+### Playing the Game
 
 To simulate two players playing the game, open a 2nd browser with another Metamask wallet installed.
 Follow the bridging step earlier to send funds to both "player" addresses.
@@ -275,3 +283,5 @@ Finally, you can play the bots attack game against yourself at [localhost:3000](
 
 Going to the block explorer, you should notice that all transactions you can view were sent by the connected wallet address.
 Each player should only be able to see their own transactions.
+
+![Contract Transactions](./img/txns.png)

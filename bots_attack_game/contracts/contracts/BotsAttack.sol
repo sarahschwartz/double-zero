@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-import "hardhat/console.sol";
-
 contract BotsAttack {
     uint8 constant BOARD_SIZE = 5;
     uint8 constant BOT_COUNT = 5;
@@ -59,7 +57,7 @@ contract BotsAttack {
 
     // Modifiers
     modifier validGame(uint256 gameId) {
-        require(gameId <= gameCounter, "Invalid game ID");
+        require(gameId <= gameCounter, 'Invalid game ID');
         _;
     }
 
@@ -67,14 +65,14 @@ contract BotsAttack {
         Game storage game = games[gameId];
         require(
             msg.sender == game.player1 || msg.sender == game.player2,
-            "Not a player in this game"
+            'Not a player in this game'
         );
-        require(!game.gameOver, "Game is over");
+        require(!game.gameOver, 'Game is over');
         require(
             (msg.sender == game.player1 && game.player1Turn) ||
                 (msg.sender == game.player2 && !game.player1Turn) ||
                 (!game.player1Ready || !game.player2Ready),
-            "Not your turn"
+            'Not your turn'
         );
         _;
     }
@@ -82,7 +80,6 @@ contract BotsAttack {
     function startGame() external returns (uint256) {
         bool isFirstGame = games[gameCounter].player1 == address(0);
         bool isLastGameOpen = games[gameCounter].player2 == address(0);
-        console.log("IS LAST GAME OPEN: ", isLastGameOpen);
 
         if (isFirstGame || !isLastGameOpen) {
             gameCounter++;
@@ -105,15 +102,11 @@ contract BotsAttack {
             games[gameCounter] = newGame;
             playerGames[msg.sender].push(gameCounter);
             emit GameCreated(gameCounter, msg.sender);
-            console.log("MADE NEW GAME!");
         } else {
             games[gameCounter].player2 = msg.sender;
             playerGames[msg.sender].push(gameCounter);
             emit PlayerJoined(gameCounter, msg.sender);
-            console.log("JOINED OPEN GAME!");
         }
-
-        console.log("GAME COUNTER: ", gameCounter);
 
         return gameCounter;
     }
@@ -125,14 +118,12 @@ contract BotsAttack {
         uint8[BOARD_SIZE][BOARD_SIZE] calldata botLocations
     ) external validGame(gameId) playersTurn(gameId) {
         Game storage game = games[gameId];
-        console.log("PLAYER 1: ", game.player1);
-        console.log("PLAYER 2: ", game.player2);
         require(
             !game.player1Ready || !game.player2Ready,
-            "Bots already placed"
+            'Bots already placed'
         );
 
-        require(msg.sender == player, "Cannot place bots for another player");
+        require(msg.sender == player, 'Cannot place bots for another player');
 
         bool isPlayer1 = player == game.player1;
 
@@ -146,7 +137,7 @@ contract BotsAttack {
             for (uint8 j = 0; j < BOARD_SIZE; j++) {
                 require(
                     board[i][j] == EMPTY || board[i][j] == BOT,
-                    "Invalid board"
+                    'Invalid board'
                 );
 
                 board[i][j] = botLocations[i][j];
@@ -156,7 +147,7 @@ contract BotsAttack {
             }
         }
 
-        require(botCount == BOT_COUNT, "Invalid number of bots");
+        require(botCount == BOT_COUNT, 'Invalid number of bots');
 
         if (isPlayer1) {
             game.player1Ready = true;
@@ -177,12 +168,12 @@ contract BotsAttack {
         Game storage game = games[gameId];
         require(
             game.player1Ready && game.player2Ready,
-            "Both players must place bots"
+            'Both players must place bots'
         );
-        require(x < BOARD_SIZE && y < BOARD_SIZE, "Invalid coordinates");
+        require(x < BOARD_SIZE && y < BOARD_SIZE, 'Invalid coordinates');
         require(
             msg.sender == attackingPlayer,
-            "Cannot call for another player"
+            'Cannot call for another player'
         );
 
         bool isPlayer1 = attackingPlayer == game.player1;
@@ -193,7 +184,7 @@ contract BotsAttack {
             ? game.player1Hacks
             : game.player2Hacks;
 
-        require(hacksBoard[x][y] == EMPTY, "Position already hacked");
+        require(hacksBoard[x][y] == EMPTY, 'Position already hacked');
 
         bool isHit = targetBoard[x][y] == BOT;
         hacksBoard[x][y] = isHit ? INFECTED : MISS;
@@ -278,12 +269,8 @@ contract BotsAttack {
         Game storage game = games[gameId];
         require(
             player == game.player1 || player == game.player2,
-            "Not a player in this game"
+            'Not a player in this game'
         );
-
-        console.log("PLAYER: ", player);
-        console.log("MSG SENDER: ", msg.sender);
-        console.log("EQUALS: ", player == msg.sender);
 
         require(msg.sender == player, "Cannot view opponent's board");
 
